@@ -1,0 +1,148 @@
+/*--------------------------------------------------------------------------------------------------
+//= ViewCommentArea
+//------------------------------------------------------------------------------------------------*/
+
+/* Wrapper */
+#ViewCommentArea
+{
+	width: 100%;
+	height: calc(100% - 128px);
+	overflow-y: scroll;
+	overflow-x: hidden;
+	margin: 0 auto;
+	padding: 0;
+	border: none;
+	background-color: #bdc3c7;
+	box-sizing: border-box;
+	box-shadow: 0px 0px 1px rgba(0,0,0,0.5)
+}
+
+/* Flexbox */
+#ViewCommentArea .Row
+{
+	display: flex;
+	flex-flow: row;
+}
+#ViewCommentArea .Row>div
+{
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 2px 8px;
+}
+
+/* Column Widths */
+#ViewCommentArea .Row .Icon			{ width: 6.25%;		min-width: calc(480px*0.0625); }
+#ViewCommentArea .Row .UserName		{ width: 16.25%;	min-width: calc(480px*0.1625); }
+#ViewCommentArea .Row .Time			{ width: 12.5%;		min-width: calc(480px*0.125); }
+#ViewCommentArea .Row .Comment		{ width: 65%;		min-width: calc(480px*0.65); }
+
+/* Header */
+#ViewCommentArea #Header,
+#ViewCommentArea #HeaderSpacer
+{
+	height: 24px;
+}
+#ViewCommentArea #Header
+{
+	width: calc(100% - 12px);
+	min-width: 480px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+#ViewCommentArea #Header .Row
+{
+	height: 100%;
+	background: #fff;
+}
+#ViewCommentArea #Header .Row div
+{
+	height: 100%;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	font-weight: bold;
+	color: #2c3e50;
+}
+#ViewCommentArea #Header .Row div:last-child
+{
+	border-right: 1px solid #ccc;
+}
+
+/* Body */
+#ViewCommentArea #Body .Row:last-child
+{
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Body Odd */
+#ViewCommentArea #Body .Row:nth-child(odd)
+{
+	background: #fff;
+}
+#ViewCommentArea #Body .Row:nth-child(odd) div
+{
+	border-left: 1px solid #ecf0f1;
+}
+#ViewCommentArea #Body .Row:nth-child(odd) div:last-child
+{
+	border-right: 1px solid #ecf0f1;
+}
+
+/* Body Even */
+#ViewCommentArea #Body .Row:nth-child(even)
+{
+	background: #ecf0f1;
+}
+#ViewCommentArea #Body .Row:nth-child(even) div
+{
+	border-left: 1px solid #d9e1e3;
+}
+#ViewCommentArea #Body .Row:nth-child(even) div:last-child
+{
+	border-right: 1px solid #d9e1e3;
+}
+
+/* Icon */
+#ViewCommentArea #Body .Row .Icon
+{
+	padding: 2px;
+}
+#ViewCommentArea #Body .Row .Icon span
+{
+	width: 24px;
+	height: 24px;
+	margin: 2px auto;
+	display: block;
+	border-radius: 12px;
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+	overflow: hidden;
+}
+#ViewCommentArea #Body .Row .Icon span img
+{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+/* UserName */
+#ViewCommentArea #Body .Row .UserName span
+{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Time */
+#ViewCommentArea #Body .Row .Time span
+{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Comment */
