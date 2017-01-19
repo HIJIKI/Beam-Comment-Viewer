@@ -39,7 +39,7 @@
 			"title": "Beam Comment Viewer",
 
 			// アイコン (HTML 側の <link> によるアイコン指定よりもこちらが優先される)
-			"icon": "./img/beam-ball.png",
+			"icon": "./img/icon.png",
 
 			// 初期表示位置 null / "center" / "mouse"
 			//"position": null,
