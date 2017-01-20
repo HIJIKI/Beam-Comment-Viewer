@@ -6,7 +6,7 @@
 #ViewCommentArea
 {
 	width: 100%;
-	height: calc(100% - 128px);
+	height: calc(100% - (64px + 12px * 2)); /* SendCommentArea: TextAreaHeight + Padding*2 */
 	overflow-y: scroll;
 	overflow-x: hidden;
 	margin: 0 auto;
@@ -50,6 +50,7 @@
 	width: calc(100% - 12px);
 	min-width: 480px;
 	position: fixed;
+	margin-top: 1px;
 	top: 0;
 	left: 0;
 	z-index: 0;
@@ -62,7 +63,6 @@
 #ViewCommentArea #Header .Row div
 {
 	height: 100%;
-	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	font-weight: bold;

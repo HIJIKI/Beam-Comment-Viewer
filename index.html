@@ -2,10 +2,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<script src="./lib/jquery-3.1.1.min.js"></script>
-		<script src="./js/Common.js"></script>
-		<script src="./js/SaveLoad.js"></script>
-		<script src="./js/CommentLog.js"></script>
 		<link rel="stylesheet" href="./css/Common.css" />
 		<link rel="stylesheet" href="./css/ScrollBar.css" />
 		<link rel="stylesheet" href="./css/ViewCommentArea.css" />
@@ -17,7 +13,7 @@
 			<div id="Header">
 				<div class="Row">
 					<div class="Icon"></div>
-					<div class="UserName"><span>ユーザー</span></div>
+					<div class="UserName"><span>ユーザー名</span></div>
 					<div class="Time"><span>時刻</span></div>
 					<div class="Comment"><span>コメント</span></div>
 				</div>
@@ -29,11 +25,15 @@
 		</div>
 
 		<div id="SendCommentArea">
-			ここはコメント入力欄
+			<textarea id="InputCommentArea" placeholder="コメント" maxlength="360"></textarea>
 		</div>
 
-		<!--
-		<script src="./js/BeamBouyomiChan.js"></script>
-		-->
+		<!-- JavaScript 読み込み -->
+		<script src="./lib/jquery-3.1.1.min.js"></script>
+		<script src="./js/Common.js"></script>
+		<script src="./js/SaveLoad.js"></script>
+		<script src="./js/CommentLog.js"></script>
+		<script src="./js/BeamClient.js"></script>
+		<!-- /JavaScript 読み込み -->
 	</body>
 </html>

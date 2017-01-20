@@ -2,10 +2,37 @@
 //= Common
 //--------------------------------------------------------------------------------------------------
 
+	// 仮
 	window.onload = function()
 	{
-		setInterval("RundomComment()",1000);
+		// メニューバーを仮配置
+		var gui = require('nw.gui');
+		var menubar = new gui.Menu({ type: 'menubar' });
+		var subMenu = new gui.Menu();
+		menubar.append(new gui.MenuItem({ label: '表示', submenu: subMenu }));
+		menubar.append(new gui.MenuItem({ label: '設定', submenu: subMenu }));
+		menubar.append(new gui.MenuItem({ label: 'ヘルプ', submenu: subMenu }));
+
+		gui.Window.get().menu = menubar;
+
+		// デバッグ表示
+		//setInterval("RundomComment()",1000);
 	}
+	//*/
+
+	//----------------------------------------------------------------------------------------------
+	//= チャットを送信する
+	//----------------------------------------------------------------------------------------------
+	$("#SendCommentArea textarea").keypress(function(event)
+	{
+		if( event.keyCode && event.keyCode == 13 )
+		{
+			SendComment(this.value);
+			this.value = "";
+			return false;
+		}
+		return true;
+	});
 
 	//----------------------------------------------------------------------------------------------
 	//= アバター画像のURLを取得する
@@ -31,3 +58,35 @@
 
 		PutComment(GetAvatarURL(703508), N, C);
 	}
+
+	//----------------------------------------------------------------------------------------------
+	//= 文字列を HTML 用にエスケープする (参考: http://qiita.com/saekis/items/c2b41cd8940923863791)
+	//----------------------------------------------------------------------------------------------
+	function EscapeHtml(string)
+	{
+		if(typeof string !== 'string')
+		{
+			return string;
+		}
+		return string.replace(/[&'`"<>]/g, function(match)
+		{
+			return {
+				'&': '&amp;',
+				"'": '&#x27;',
+				'`': '&#x60;',
+				'"': '&quot;',
+				'<': '&lt;',
+				'>': '&gt;',
+			}[match]
+		});
+	}
+
+	/*
+	//----------------------------------------------------------------------------------------------
+	//= Message を棒読みちゃんに読ませる
+	//----------------------------------------------------------------------------------------------
+	function SendBouyomi(Message)
+	{
+		Exec(RemoteTalk + ' /talk ' + '"'+Message+'"');
+	}
+	//*/

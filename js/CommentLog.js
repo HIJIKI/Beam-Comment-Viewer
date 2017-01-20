@@ -16,9 +16,9 @@ function PutComment(IconURL, UserName, Comment)
 	[
 		'<div class="Row">',
 		'	<div class="Icon"><span>'+ImgTag+'</span></div>',
-		'	<div class="UserName"><span>'+UserName+'</span></div>',
-		'	<div class="Time"><span>'+Time+'</span></div>',
-		'	<div class="Comment"><span>'+Comment+'</span></div>',
+		'	<div class="UserName"><span title="'+EscapeHtml(UserName)+'">'+EscapeHtml(UserName)+'</span></div>',
+		'	<div class="Time"><span>'+EscapeHtml(Time)+'</span></div>',
+		'	<div class="Comment"><span>'+EscapeHtml(Comment)+'</span></div>',
 		'</div>'
 	].join("");
 
