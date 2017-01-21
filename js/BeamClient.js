@@ -1,14 +1,13 @@
 //--------------------------------------------------------------------------------------------------
 //= BeamClient
 //--------------------------------------------------------------------------------------------------
-
 	// ライブラリの読み込み
 	const Exec = require('child_process').exec;
 	const BeamClient = require('beam-client-node');
 	const BeamSocket = require('beam-client-node/lib/ws');
 
 	// 設定ファイルを読み込む
-	var Settings = LoadJson(process.env.APPDATA+"/BeamCommentViewer/Settings.json");
+	var Settings = Common.LoadJson(process.env.APPDATA+"/BeamCommentViewer/Settings.json");
 
 	// 棒読みちゃんの RemoteTalk のパス
 	var RemoteTalk = Settings.BouyomiChan+'\\RemoteTalk\\RemoteTalk.exe';
@@ -49,8 +48,7 @@
 
 		socket.auth(channelId, userId, authkey)
 		.then(() => {
-			console.log('Beam のチャットに接続しました。');
-			PutComment('./img/icon.png', 'System', 'Beam のチャットに接続しました。');
+			ViewCommentArea.PutComment('./img/icon.png', 'System', 'Beam のチャットに接続しました。');
 			SendBouyomi("Beamのチャットに接続しました。")
 			return;
 		})
@@ -61,12 +59,8 @@
 		// チャット受信時
 		socket.on('ChatMessage', data => {
 
-			console.log("socket.on");
-
 			// 受信したメッセージが Whisper でない場合のみ
 			if( data.message.meta.whisper != true ){
-
-				console.log("no whisper");
 
 				// 出力用メッセージ
 				var Message = "";
@@ -93,7 +87,7 @@
 				}
 
 				// アプリに出力
-				PutComment(GetAvatarURL(data.user_id), data.user_name, Message);
+				ViewCommentArea.PutComment(Common.GetAvatarURL(data.user_id), data.user_name, Message);
 
 				// 名前を読み上げる場合
 				if( CallName )
@@ -105,7 +99,7 @@
 				BouyomiMessage = BouyomiMessage.trim();
 				if( BouyomiMessage != "" )
 				{
-					SendBouyomi(BouyomiMessage);
+					//SendBouyomi(BouyomiMessage);
 				}
 
 				// ログに出力

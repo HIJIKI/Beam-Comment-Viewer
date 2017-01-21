@@ -1,0 +1,77 @@
+<div id="SettingInner">
+	<fieldset id="BeamAccount">
+		<legend>Beam アカウント</legend>
+		<p id="UserName"><input type="text" placeholder="ユーザー名"></p>
+		<p id="Password"><input type="password" placeholder="パスワード"></p>
+	</fieldset>
+	<fieldset id="Whisper">
+		<legend>Whisper の扱い</legend>
+		<p id="PutWhisper">
+			<input id="PutWhisperCheckbox" type="checkbox">
+			<label for="PutWhisperCheckbox">Whisper を表示する<label>
+		</p>
+		<p id="CallWhisper">
+			<input id="CallWhisperCheckbox" type="checkbox">
+			<label for="CallWhisperCheckbox" class="checkbox">Whisper を読み上げる</label>
+		</p>
+	</fieldset>
+	<fieldset id="BouyomiChan">
+		<legend>棒読みちゃん連携</legend>
+		<p id="CallBouyomiChan">
+			<input id="CallBouyomiChanCheckbox" type="checkbox">
+			<label for="CallBouyomiChanCheckbox">棒読みちゃん連携を有効にする<label>
+		</p>
+		<p id="BouyomiChanLocation">
+			<input type="text" readonly placeholder="棒読みちゃんの場所 (クリックで設定する)">
+		</p>
+		<fieldset id="UserNameBouyomi">
+		<legend>ユーザー名の読み上げ</legend>
+		<p id="UserNameBouyomiOff">
+			<input name="UserNameBouyomi" id="UserNameBouyomiOffRadio" type="radio">
+			<label for="UserNameBouyomiOffRadio">ユーザー名を読み上げない<label>
+		</p>
+		<p id="UserNameBouyomiBefore">
+			<input name="UserNameBouyomi" id="UserNameBouyomiBeforeRadio" type="radio">
+			<label for="UserNameBouyomiBeforeRadio">コメントの前に読み上げる<label>
+		</p>
+		<p id="UserNameBouyomiAfter">
+			<input name="UserNameBouyomi" id="UserNameBouyomiAfterRadio" type="radio">
+			<label for="UserNameBouyomiAfterRadio">コメントの後に読み上げる<label>
+		</p>
+		</fieldset>
+	</fieldset>
+
+	<div id="CloseButtons">
+		<span id="OKButton">OK</span>
+		<span id="CancelButton">キャンセル</span>
+	</div>
+
+	<!-- 以下 JavaScript -->
+	<script>
+		(function ()
+		{
+			// OK ボタンが押された
+			$('#OKButton').click(function()
+			{
+				Setting.Close();
+			});
+
+			// キャンセルボタンが押された
+			$('#CancelButton').click(function()
+			{
+				Setting.Close();
+			});
+
+			// 棒読みちゃん連携チェックボックスが操作された
+			$('#CallBouyomiChanCheckbox').change(function()
+			{
+				if( $(this).prop('checked') )
+				{
+					
+				} else {
+					
+				}
+			});
+		})();
+	</script>
+</div>
