@@ -1,4 +1,6 @@
-# Beam Comment Viewer
+# Beam にも Comment Viewer を。
+
+![Beam Comment Viewer](./readme/bcv.png)
 
 Beam 配信時にコメントを閲覧するためのアプリケーションです。棒読みちゃんと連携できます。
 
