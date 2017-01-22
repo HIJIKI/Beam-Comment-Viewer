@@ -105,6 +105,12 @@ label, input[type='radio']
 	cursor: pointer;
 }
 
+/* File */
+input[type='file']
+{
+	display: none;
+}
+
 /* CloseButtons */
 #CloseButtons
 {

@@ -6,8 +6,8 @@
 	//= アプリケーション全体に関する設定
 	//----------------------------------------------------------------------------------------------
 
-	// アプリケーションの名前
-	"name": "Beam Comment Viewer",
+	// アプリケーションの名前 (同じ名前の NW.js 製アプリ間で LocalStorage が共有されます。なるべくユニークなものにしてください。)
+	"name": "Beam Comment Viewer (HIJIKI SOFT)",
 	
 	// アプリケーションのバージョン
 	"version": "0.0.0",
@@ -105,7 +105,7 @@
 	"user-agent": "%name v%ver / NW.js v%nwver / Webkit v%webkit_ver / %osinfo"
 
 	// Chromium で使用可能なコマンドライン引数 (参照: http://docs.nwjs.io/en/latest/References/Command%20Line%20Options/)
-	//"chromium-args": "--disable-gpu",
+	//"chromium-args": "--user-data-dir='./config/'"
 
 	// JavaScript エンジンに渡されるフラグ
 	//"js-flags": "--harmony_proxies --harmony_collections",

@@ -55,12 +55,12 @@ class MenuBar
 		});
 		//*/
 
-		// コメントを読み上げるボタン
+		// 棒読みちゃん連携を有効にするボタン
 		this.CallBouyomiChanButton = new Gui.MenuItem(
 		{
 			type: 'checkbox',
-			label: 'コメントを読み上げる',
-			click: function(){ MenuBar.ToggleAlwaysOnTop(); }
+			label: '棒読みちゃん連携を有効にする',
+			click: function(){ MenuBar.ToggleCallBouyomiChan(); }
 		});
 
 		// 設定ボタン
@@ -94,7 +94,7 @@ class MenuBar
 
 		// 設定
 		this.Setting = new Gui.Menu();
-		this.Setting.append(this.CallBouyomiChanButton);						// コメントを読み上げる
+		this.Setting.append(this.CallBouyomiChanButton);						// 棒読みちゃん連携を有効にする
 		this.Setting.append(this.SettingButton);								// 設定
 
 		// ヘルプ
@@ -138,9 +138,7 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static Exit()
 	{
-		var Gui = require('nw.gui');
-		Gui.App.closeAllWindows();
-		Gui.App.quit();
+		Common.Exit();
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -150,15 +148,23 @@ class MenuBar
 	{
 		var Win = nw.Window.get();
 		var Flag = this.AlwaysOnTopButton.checked;
-		Win.setAlwaysOnTop(Flag)
+		Setting.AlwaysOnTop = Flag;
+		Win.setAlwaysOnTop(Flag);
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= コメントを読み上げる
+	//= 棒読みちゃん連携を有効にする
 	//----------------------------------------------------------------------------------------------
 	static ToggleCallBouyomiChan()
 	{
-		console.log("ToggleCallBouyomiChan()")
+		var Flag = this.CallBouyomiChanButton.checked;
+		Setting.CallBouyomiChan = Flag;
+
+		if( Flag && Setting.BouyomiChanLocation == '' )
+		{
+			alert('棒読みちゃん連携が有効にされましたが、コメントを読み上げさせるには\n棒読みちゃんの場所を指定する必要があります。');
+			Setting.Open();
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -181,9 +187,18 @@ class MenuBar
 			'\n',
 			'GitHub: https://github.com/HIJIKIsw/Beam-Comment-Viewer\n',
 			'\n',
-			'Presented by HIJIKIsw\n'
+			'©2017 HIJIKIsw\n'
 		].join("");
 		alert(Data);
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= 各チェックボックスを適宜変更する
+	//----------------------------------------------------------------------------------------------
+	static CheckboxUpdate()
+	{
+		this.AlwaysOnTopButton.checked = Setting.AlwaysOnTop;
+		this.CallBouyomiChanButton.checked = Setting.CallBouyomiChan;
 	}
 
 }

@@ -9,7 +9,12 @@ class Common
 	//----------------------------------------------------------------------------------------------
 	static Init()
 	{
-		
+		// ウィンドウが閉じられた時のイベントを登録
+		const Gui = require('nw.gui');
+		const Window = Gui.Window.get();
+		Window.on( 'close', function() {
+			Common.Exit();
+		});
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -59,6 +64,51 @@ class Common
 		});
 	}
 
+	//----------------------------------------------------------------------------------------------
+	//= ファイルのフルパスからディレクトリに変換する
+	//----------------------------------------------------------------------------------------------
+	static FullPath2Dir(FullPath)
+	{
+		// スラッシュ「/」を逆スラッシュ「\」に置換 (念のため)
+		var FilePath = FullPath.replace(/\//g, '\\');
+
+		// 「\」でsplit
+		var FilePaths = FilePath.split('\\');
+
+		// 末尾の要素 (ファイル名の部分) を削除
+		FilePaths.pop();
+
+		return FilePaths.join('\\');
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= ファイルのフルパスからファイル名のみを取り出す
+	//----------------------------------------------------------------------------------------------
+	static FullPath2FileName(FullPath)
+	{
+		// スラッシュ「/」を逆スラッシュ「\」に置換 (念のため)
+		var FilePath = FullPath.replace(/\//g, '\\');
+
+		// 「\」でsplit
+		var FilePaths = FilePath.split('\\');
+
+		return FilePaths.pop();
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= アプリケーションを終了する
+	//----------------------------------------------------------------------------------------------
+	static Exit()
+	{
+		// 設定を保存する
+		Setting.Save();
+
+		// 終了する
+		var Gui = require('nw.gui');
+		Gui.App.closeAllWindows();
+		Gui.App.quit();
+	}
+
 	/*
 	//----------------------------------------------------------------------------------------------
 	//= Message を棒読みちゃんに読ませる
@@ -68,38 +118,5 @@ class Common
 		Exec(RemoteTalk + ' /talk ' + '"'+Message+'"');
 	}
 	//*/
-
-	//----------------------------------------------------------------------------------------------
-	//= Json ファイルに書き込む (削除予定)
-	//----------------------------------------------------------------------------------------------
-	/*
-	function SaveJson(JsonPath)
-	{
-		const fs = require('fs-extra');
-		const AppData = process.env.APPDATA;
-		const JsonDir = AppData + "/BeamCommentViewer";
-		const JsonName = "Settings.json";
-		
-		var Input = document.getElementById('UserInput');
-
-		var Data = {
-			"Data": Input.value
-		};
-		fs.mkdirsSync(JsonDir);
-		fs.writeFile(JsonDir + "/" + JsonName, JSON.stringify(Data, null, '	'));
-
-		console.log("Saved");
-	}
-	//*/
-
-	//----------------------------------------------------------------------------------------------
-	//= Json ファイルを読み込む (削除予定)
-	//----------------------------------------------------------------------------------------------
-	static LoadJson(JsonPath)
-	{
-		const fs = require('fs-extra');
-		var Data = JSON.parse(fs.readFileSync(JsonPath, 'utf8'));
-		return Data;
-	}
 
 }
