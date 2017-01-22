@@ -8,6 +8,6 @@
 	Common.Init();
 	MenuBar.Init();
 	Setting.Init();
-	//BeamClient.Init();
+	BeamClient.Init();
 	SendCommentArea.Init();
 	ViewCommentArea.Init();

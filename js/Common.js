@@ -109,14 +109,24 @@ class Common
 		Gui.App.quit();
 	}
 
-	/*
 	//----------------------------------------------------------------------------------------------
 	//= Message を棒読みちゃんに読ませる
 	//----------------------------------------------------------------------------------------------
-	function SendBouyomi(Message)
+	static SendBouyomi(Message)
 	{
+		const Exec = require('child_process').exec;
+		var RemoteTalk = "";
 		Exec(RemoteTalk + ' /talk ' + '"'+Message+'"');
 	}
-	//*/
+
+	//----------------------------------------------------------------------------------------------
+	//= Json ファイルを読み込む (削除予定)
+	//----------------------------------------------------------------------------------------------
+	static LoadJson(JsonPath)
+	{
+		const fs = require('fs-extra');
+		var Data = JSON.parse(fs.readFileSync(JsonPath, 'utf8'));
+		return Data;
+	}
 
 }
