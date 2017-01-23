@@ -12,7 +12,8 @@ class Common
 		// ウィンドウが閉じられた時のイベントを登録
 		const Gui = require('nw.gui');
 		const Window = Gui.Window.get();
-		Window.on( 'close', function() {
+		Window.on( 'close', function()
+		{
 			Common.Exit();
 		});
 	}

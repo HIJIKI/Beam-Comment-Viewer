@@ -18,13 +18,16 @@ class Setting
 			CallWhisper:			false,
 			CallBouyomiChan:		false,
 			BouyomiChanLocation:	"",
-			CallUserName:			0
+			CallUserName:			0,
+			MaxCommentLength:		100
 		};
 
 		// 名前読み上げ設定の定数
 		this.CALL_USER_NAME_OFF		= 0
 		this.CALL_USER_NAME_BEFORE	= 1
 		this.CALL_USER_NAME_AFTER	= 2
+
+		this.MaxCommentLength = this.Defaults.MaxCommentLength;
 
 		// RemoteTalk の相対パス (BouyomiChan.exe からの)
 		this.RemoteTalkRelativePath = 'RemoteTalk\\RemoteTalk.exe';

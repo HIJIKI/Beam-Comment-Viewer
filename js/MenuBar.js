@@ -198,7 +198,8 @@ class MenuBar
 			'\n',
 			'GitHub: https://github.com/HIJIKIsw/Beam-Comment-Viewer\n',
 			'\n',
-			'©2017 HIJIKIsw'
+			'©2017 HIJIKIsw\n',
+			'Icon Design: kix'
 		].join("");
 		alert(Data);
 	}

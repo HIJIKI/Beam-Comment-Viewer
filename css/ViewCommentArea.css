@@ -153,3 +153,10 @@
 }
 
 /* Comment */
+#ViewCommentArea #Body .Row .Comment span .Link
+{
+	cursor: pointer;
+	text-decoration: underline;
+	color: #3498db;
+	word-break: break-all;
+}

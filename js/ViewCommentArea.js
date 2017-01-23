@@ -66,6 +66,16 @@ class ViewCommentArea
 		}
 
 		$('#CommentOutputPosition').before(Data);
+		
+		// コメント内の URL をリンクに置き換える
+		var Target = $('#CommentOutputPosition').prev().find('.Comment span');
+		$(Target).html( $(Target).html().replace(/((?:https?|ftp):\/\/[^\s　]+)/g, '<span class="Link" onclick="ViewCommentArea.OpenLink(\'$1\');">$1</span>') );
+
+		// コメントが 100 件を超えた場合は古い物から削除
+		var CommentLength = $('#ViewCommentArea #Body .Row').length;
+		if( CommentLength > Setting.MaxCommentLength ){
+			$('#ViewCommentArea #Body .Row:first-child').remove();
+		}
 
 		// コメント出力前にスクロールバーが一番下にあった場合はスクロールバーを一番下に再調整
 		if( ScrollBarIsBottom )
@@ -73,6 +83,16 @@ class ViewCommentArea
 			ViewCommentArea.scrollTop(ViewCommentArea.get(0).scrollHeight);
 		}
 	}
+
+	//----------------------------------------------------------------------------------------------
+	//= リンクをデフォルトブラウザで開く
+	//----------------------------------------------------------------------------------------------
+	static OpenLink(URL)
+	{
+		const GUI = require('nw.gui')
+		GUI.Shell.openExternal(URL);
+	}
+
 
 	//----------------------------------------------------------------------------------------------
 	//= ユーザーアイコンの表示/非表示を切り替え
