@@ -17,15 +17,17 @@ class ViewCommentArea
 	//----------------------------------------------------------------------------------------------
 	static SystemMessage(Message)
 	{
-		this.PutComment('./img/icon.png', 'System', Message);
+		this.PutComment('./img/icon.png', 'System', Message, false);
 	}
 
 	//----------------------------------------------------------------------------------------------
 	//= ログにコメントを出力
 	//----------------------------------------------------------------------------------------------
-	static PutComment(IconURL, UserName, Comment)
+	static PutComment(IconURL, UserName, Comment, IsWhisper)
 	{
-		const ImgTag = '<img src="'+IconURL+'">';
+		console.log(UserName+": "+Comment);
+
+		var ImgTag = '<img src="'+IconURL+'">';
 
 		// 現在時刻を取得
 		var date = new Date();
@@ -34,9 +36,20 @@ class ViewCommentArea
 		var Sec = ('0' + date.getSeconds()).slice(-2);
 		var Time = Hou+":"+Min+":"+Sec;
 
+		// Whisper の場合は .Whisper クラスを付与する
+		var FirstLine = '';
+		if( IsWhisper )
+		{
+			FirstLine = '<div class="Row Whisper">';
+		}
+		else
+		{
+			FirstLine = '<div class="Row">';
+		}
+
 		var Data =
 		[
-			'<div class="Row">',
+			FirstLine,
 			'	<div class="Icon"><span>'+ImgTag+'</span></div>',
 			'	<div class="UserName"><span title="'+Common.EscapeHtml(UserName)+'">'+Common.EscapeHtml(UserName)+'</span></div>',
 			'	<div class="Time"><span>'+Common.EscapeHtml(Time)+'</span></div>',

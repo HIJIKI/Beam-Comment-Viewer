@@ -90,29 +90,23 @@
 		// 棒読みちゃんのパスが設定された
 		$('#BouyomiChanLocationFile').change(function()
 		{
-			const fs = require('fs-extra');
-
 			// 指定したファイルのディレクトリを取得
 			var FilePath = $('#BouyomiChanLocationFile').val();
+			var FileDir = Common.FullPath2Dir(FilePath);
 
 			// ファイルが選択された場合のみ
 			if( FilePath != '')
 			{
-				var FileDir = Common.FullPath2Dir(FilePath);
-
 				// 指定したディレクトリに RemoteTalk があるか調べる
 				var RemoteTalkExists = FileDir+'\\'+Setting.RemoteTalkRelativePath
-				fs.exists(RemoteTalkExists, function(exists)
+				if( Common.Exist(RemoteTalkExists) )
 				{
-					if( exists )
-					{
-						$('#BouyomiChanLocationInput').val(FilePath);
-					}
-					else
-					{
-						alert('棒読みちゃんのフォルダ内に RemoteTalk が見つかりませんでした。\nBouyomiChan.exe が選択されていないか、ファイルが不足しています。');
-					}
-				});
+					$('#BouyomiChanLocationInput').val(FilePath);
+				}
+				else
+				{
+					alert('RemoteTalk.exe が見つかりませんでした。\nBouyomiChan.exe が選択されていないか、ファイルが不足しています。');
+				}
 			}
 		});
 

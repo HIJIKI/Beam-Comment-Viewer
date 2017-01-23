@@ -14,7 +14,7 @@ class SendCommentArea
 		{
 			if( event.keyCode && event.keyCode == 13 )
 			{
-				BeamClient.SendComment(this.value);
+				BeamClientManager.SendComment(this.value);
 				this.value = "";
 				return false;
 			}

@@ -31,7 +31,11 @@ master ブランチにあるものは、ソースコードを眺めて進捗を�
 
 ## 開発環境
 
-NW.js ( 旧 node-webkit ) v0.19.5
+NW.js v0.19.5
+
+Required modules:
+* beam-client-node
+* node-machine-id
 
 ## ライセンス
 

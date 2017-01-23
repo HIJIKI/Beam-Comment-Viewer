@@ -1,125 +1,27 @@
-//--------------------------------------------------------------------------------------------------
-//= Beam Comment Viewer Package Settings
-//--------------------------------------------------------------------------------------------------
 {
-	//----------------------------------------------------------------------------------------------
-	//= アプリケーション全体に関する設定
-	//----------------------------------------------------------------------------------------------
-
-	// アプリケーションの名前 (同じ名前の NW.js 製アプリ間で LocalStorage が共有されます。なるべくユニークなものにしてください。)
-	"name": "Beam Comment Viewer (HIJIKI SOFT)",
-	
-	// アプリケーションのバージョン
-	"version": "0.0.0",
-	
-	// アプリケーション起動時に開かれるファイル
+	"//":"アプリケーションの名前 (同じ名前の NW.js 製アプリ間で LocalStorage が共有されます。なるべくユニークなものにしてください。)",
+	"name": "HIJIKI SOFT\\Beam Comment Viewer",
+	"version": "0.1.0",
 	"main": "index.html",
-	
-	// NW.js 内蔵の Node.js を使用するか
-	//"nodejs": true,
-	
-	// 外部 Node.js のパス (使用する場合)
-	//"node-main": "./Node.js",
-	
-	// アプリケーションに使用される chrome-extension:// プロトコルURL (指定すると、アプリケーションと同じドメインのWebサイトとの間で同じCookieを共有します。)
-	//"domain": "chrome-extension://abcdefghijklmnopqrstuvwxyz/",
-
-	// アプリケーション起動時にバックグラウンドで実行されるスクリプト
-	//"bg-script": "./background.js",
-
-	//----------------------------------------------------------------------------------------------
-	//= ウィンドウに関する設定
-	//----------------------------------------------------------------------------------------------
-		"window":
-		{
-			// 識別 ID (ウィンドウの位置やサイズを記憶させたい場合は他とかぶらないユニークな ID を指定, アプリケーション名など)
-			"id": "BeamCommentViewerForNW.js",
-
-			// タイトル (HTML 側の <title> が優先される)
-			"title": "Beam Comment Viewer",
-
-			// アイコン (HTML 側の <link> によるアイコン指定よりもこちらが優先される)
-			"icon": "./img/icon.png",
-
-			// 初期表示位置 null / "center" / "mouse"
-			//"position": null,
-
-			// 横幅初期値
-			"width": 640,
-			
-			// 横幅最小値
-			"min_width": 492,	// 480px + ScrollBarSize
-
-			// 横幅最大値
-			//"max_width": 1000,
-
-			// 高さ初期値
-			"height": 480,
-
-			// 高さ最小値
-			"min_height": 480,
-
-			// 高さ最大値
-			//"max_height": 640
-
-			// リサイズの許可 (false で禁止)
-			"resizable": true,
-
-			// 常に最前面に表示するか
-			//"always_on_top": true,
-
-			// フルスクリーンで表示するか
-			"fullscreen": false,
-
-			// タスクバーに表示するか
-			"show_in_taskbar": true,
-
-			// ウィンドウ枠を表示するか
-			//"frame": false,
-
-			// 起動時にウィンドウを表示するか
-			"show": true,
-
-			// キオスクモードを使用するか (ただのフルスクリーン？詳細不明。)
-			"kiosk": false
-
-			// 透過モードを使用するか (true にするとウィンドウが表示されない？詳細不明。)
-			//"transparent": true
-
-		},
-
-	//----------------------------------------------------------------------------------------------
-	//= Webkit に関する設定
-	//----------------------------------------------------------------------------------------------
-
+	"window":
+	{
+		"id": "BeamCommentViewerForNW.js",
+		"title": "Beam Comment Viewer",
+		"icon": "./img/icon.png",
+		"width": 640,
+		"min_width": 492,
+		"height": 480,
+		"min_height": 256,
+		"resizable": true,
+		"fullscreen": false,
+		"show_in_taskbar": true,
+		"show": true,
+		"kiosk": false
+	},
 	"webkit":
 	{
-		// ダブルタップでズームするか (Macのみ有効？詳細不明)
 		"double_tap_to_zoom_enabled": false,
-
-		// Flash などの外部プラグインを読み込むか
 		"plugin": true
 	},
-
-	// ユーザーエージェント (オーバーライドする場合のみ指定)
 	"user-agent": "%name v%ver / NW.js v%nwver / Webkit v%webkit_ver / %osinfo"
-
-	// Chromium で使用可能なコマンドライン引数 (参照: http://docs.nwjs.io/en/latest/References/Command%20Line%20Options/)
-	//"chromium-args": "--user-data-dir='./config/'"
-
-	// JavaScript エンジンに渡されるフラグ
-	//"js-flags": "--harmony_proxies --harmony_collections",
-
-	// ページ読み込み時、CSS のあと、DOM 構築前に実行する JavaScript ファイル
-	//"inject_js_start": "",
-
-	// ページ読み込み時、onload イベントの前に実行する JavaScript ファイル
-	//"inject_js_end": "",
-
-	// 追加のルート証明書？詳細不明。
-	//"additional_trust_anchors": "",
-
-	// DOM Storage に割当てる容量 (MB)
-	//"dom_storage_quota": 8
-
 }

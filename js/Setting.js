@@ -21,6 +21,11 @@ class Setting
 			CallUserName:			0
 		};
 
+		// 名前読み上げ設定の定数
+		this.CALL_USER_NAME_OFF		= 0
+		this.CALL_USER_NAME_BEFORE	= 1
+		this.CALL_USER_NAME_AFTER	= 2
+
 		// RemoteTalk の相対パス (BouyomiChan.exe からの)
 		this.RemoteTalkRelativePath = 'RemoteTalk\\RemoteTalk.exe';
 
@@ -78,30 +83,26 @@ class Setting
 	//----------------------------------------------------------------------------------------------
 	static Save()
 	{
-		// undefined でない値のみ保存する
-		if( this.UserName				!= undefined ) { localStorage.UserName				= JSON.stringify(this.UserName); }
-		if( this.Password				!= undefined ) { localStorage.Password				= JSON.stringify(this.Password); }
-		if( this.AlwaysOnTop			!= undefined ) { localStorage.AlwaysOnTop			= JSON.stringify(this.AlwaysOnTop); }
-		if( this.PutWhisper				!= undefined ) { localStorage.PutWhisper			= JSON.stringify(this.PutWhisper); }
-		if( this.CallWhisper			!= undefined ) { localStorage.CallWhisper			= JSON.stringify(this.CallWhisper); }
-		if( this.CallBouyomiChan		!= undefined ) { localStorage.CallBouyomiChan		= JSON.stringify(this.CallBouyomiChan); }
-		if( this.BouyomiChanLocation	!= undefined ) { localStorage.BouyomiChanLocation	= JSON.stringify(this.BouyomiChanLocation); }
-		if( this.CallUserName			!= undefined ) { localStorage.CallUserName			= JSON.stringify(this.CallUserName); }
+		// 省略用
+		var t = this;
+		var ls = localStorage;
+		var un = undefined;
+		var st = JSON.stringify;
 
-		/*
-		console.log("------------------------------")
-		console.log("Setting saved.")
-		console.log("------------------------------")
-		console.log("UserName: "+typeof(this.UserName)+" "+this.UserName);
-		console.log("Password: "+typeof(this.Password)+" "+this.Password);
-		console.log("AlwaysOnTop: "+typeof(this.AlwaysOnTop)+" "+this.AlwaysOnTop);
-		console.log("PutWhisper: "+typeof(this.PutWhisper)+" "+this.PutWhisper);
-		console.log("CallWhisper: "+typeof(this.CallWhisper)+" "+this.CallWhisper);
-		console.log("CallBouyomiChan: "+typeof(this.CallBouyomiChan)+" "+this.CallBouyomiChan);
-		console.log("BouyomiChanLocation: "+typeof(this.BouyomiChanLocation)+" "+this.BouyomiChanLocation);
-		console.log("CallUserName: "+typeof(this.CallUserName)+" "+this.CallUserName);
-		console.log("------------------------------")
-		//*/
+		// undefined でない値のみ保存する
+		if( t.UserName				!= un ) { ls.UserName				= st(t.UserName); }
+		if( t.AlwaysOnTop			!= un ) { ls.AlwaysOnTop			= st(t.AlwaysOnTop); }
+		if( t.PutWhisper			!= un ) { ls.PutWhisper				= st(t.PutWhisper); }
+		if( t.CallWhisper			!= un ) { ls.CallWhisper			= st(t.CallWhisper); }
+		if( t.CallBouyomiChan		!= un ) { ls.CallBouyomiChan		= st(t.CallBouyomiChan); }
+		if( t.BouyomiChanLocation	!= un ) { ls.BouyomiChanLocation	= st(t.BouyomiChanLocation); }
+		if( t.CallUserName			!= un ) { ls.CallUserName			= st(t.CallUserName); }
+
+		// パスワードのみ例外的に暗号化して保存する
+		if( t.Password				!= un )
+		{
+			ls.Password = st(Common.Encrypt(t.Password));
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -110,20 +111,22 @@ class Setting
 	static Load()
 	{
 		// 省略用
-		const t = this;
-		const ls = localStorage;
-		const un = undefined;
-		const p = JSON.parse;
+		var t = this;
+		var ls = localStorage;
+		var un = undefined;
+		var p = JSON.parse;
 
 		// 各データを読み込む (undefined の場合は初期値を代入する)
 		t.UserName				= ls.UserName				!= un ? p(ls.UserName)				: t.Defaults.UserName;
-		t.Password				= ls.Password				!= un ? p(ls.Password)				: t.Defaults.Password;
 		t.AlwaysOnTop			= ls.AlwaysOnTop			!= un ? p(ls.AlwaysOnTop)			: t.Defaults.AlwaysOnTop;
 		t.PutWhisper			= ls.PutWhisper				!= un ? p(ls.PutWhisper)			: t.Defaults.PutWhisper;
 		t.CallWhisper			= ls.CallWhisper			!= un ? p(ls.CallWhisper)			: t.Defaults.CallWhisper;
 		t.CallBouyomiChan		= ls.CallBouyomiChan		!= un ? p(ls.CallBouyomiChan)		: t.Defaults.CallBouyomiChan;
 		t.BouyomiChanLocation	= ls.BouyomiChanLocation	!= un ? p(ls.BouyomiChanLocation)	: t.Defaults.BouyomiChanLocation;
 		t.CallUserName			= ls.CallUserName			!= un ? p(ls.CallUserName)			: t.Defaults.CallUserName;
+
+		// パスワードのみ例外的に復号して読み込む
+		t.Password = ls.Password != un ? Common.Decrypt(p(ls.Password))	: t.Defaults.Password;
 
 		console.log("------------------------------")
 		console.log("Setting loaded.")

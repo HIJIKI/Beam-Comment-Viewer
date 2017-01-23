@@ -79,6 +79,13 @@
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
+/* Whisper */
+#ViewCommentArea #Body .Row.Whisper
+{
+	color: #3498db;
+	font-weight: bold;
+}
+
 /* Body Odd */
 #ViewCommentArea #Body .Row:nth-child(odd)
 {

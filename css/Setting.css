@@ -128,17 +128,24 @@ input[type='file']
 	text-decoration: none;
 	transition: opacity .2s ease;
 	cursor: pointer;
+	background: #ecf0f1;
 }
 #CloseButtons span:hover
 {
 	opacity: 0.8;
 }
+#CloseButtons span:active
+{
+	background: #3498db;
+	color: #fff !important;
+	border-color: #2980b9;
+}
 #CloseButtons #OKButton
 {
-	background: #2980b9;
-	color: #fff;
+	border-color: #2980b9;
+	color: #2980b9;
 }
 #CloseButtons #CancelButton
 {
-	background: #ecf0f1;
+	color: #7f8c8d;
 }

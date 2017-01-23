@@ -39,7 +39,7 @@ class Common
 		var N = UserName[Math.floor(Math.random()*UserName.length)];
 		var C = Comment[Math.floor(Math.random()*Comment.length)];
 
-		PutComment(GetAvatarURL(703508), N, C);
+		ViewCommentArea.PutComment(Common.GetAvatarURL(703508), N, C, false);
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -103,10 +103,31 @@ class Common
 		// 設定を保存する
 		Setting.Save();
 
+		BeamClientManager.Disconnect();
+
 		// 終了する
 		var Gui = require('nw.gui');
 		Gui.App.closeAllWindows();
 		Gui.App.quit();
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= ファイルの有無を確認する
+	//----------------------------------------------------------------------------------------------
+	static Exist(FilePath) {
+		const fs = require('fs');
+		try
+		{
+			fs.statSync(FilePath);
+			return true
+		}
+		catch(err)
+		{
+			if(err.code === 'ENOENT')
+			{
+				return false
+			}
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -115,18 +136,57 @@ class Common
 	static SendBouyomi(Message)
 	{
 		const Exec = require('child_process').exec;
-		var RemoteTalk = "";
-		Exec(RemoteTalk + ' /talk ' + '"'+Message+'"');
+		var BouyomiChan = Setting.BouyomiChanLocation;
+		var BouyomiDir = Common.FullPath2Dir(BouyomiChan);
+		var RemoteTalk = BouyomiDir+'\\'+Setting.RemoteTalkRelativePath;
+		// RemoteTalk が見つかった場合のみ
+		if( Common.Exist(RemoteTalk) )
+		{
+			Exec(RemoteTalk + ' /talk ' + '"'+Message+'"');
+		}		
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= Json ファイルを読み込む (削除予定)
+	//= マシンのユニークIDを取得する
 	//----------------------------------------------------------------------------------------------
-	static LoadJson(JsonPath)
+	static GetMachineUniqueID()
 	{
-		const fs = require('fs-extra');
-		var Data = JSON.parse(fs.readFileSync(JsonPath, 'utf8'));
-		return Data;
+		const machineid = require('node-machine-id');
+		var Result = machineid.machineIdSync();
+		return Result;
 	}
 
+	//----------------------------------------------------------------------------------------------
+	//= ユニークIDをシードとして暗号化
+	//----------------------------------------------------------------------------------------------
+	static Encrypt(PlainText)
+	{
+		const UniqueID = Common.GetMachineUniqueID();
+		const crypto = require("crypto");
+		var cipher = crypto.createCipher('aes192', UniqueID);
+
+		var Original = ''+PlainText;
+		var Encrypted = '';
+
+		Encrypted = cipher.update(Original, 'utf8', 'hex');
+		Encrypted += cipher.final('hex');
+		return Encrypted;
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= ユニークIDをシードとして復号
+	//----------------------------------------------------------------------------------------------
+	static Decrypt(Encrypted)
+	{
+		const UniqueID = Common.GetMachineUniqueID();
+		const crypto = require("crypto");
+		var decipher = crypto.createDecipher('aes192', UniqueID);
+
+		var Original = ''+Encrypted;
+		var Decrypted = '';
+
+		Decrypted = decipher.update(Original, 'hex', 'utf8');
+		Decrypted += decipher.final('utf8');
+		return Decrypted;
+	}
 }

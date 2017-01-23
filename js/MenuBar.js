@@ -27,7 +27,8 @@ class MenuBar
 		this.DisconnectButton = new Gui.MenuItem(
 		{
 			label: '切断',
-			click: function(){ MenuBar.Disconnect(); }
+			click: function(){ MenuBar.Disconnect(); },
+			enabled: false
 		});
 
 		// 終了ボタン
@@ -122,7 +123,11 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static Connect()
 	{
-		console.log("Connect()")
+		// 接続ボタンを無効にする
+		MenuBar.ConnectButton.enabled = false;
+
+		// 接続
+		BeamClientManager.Connect(Setting.UserName, Setting.Password);
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -130,7 +135,12 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static Disconnect()
 	{
-		console.log("Disconnect()")
+		// 接続ボタンを有効に、切断ボタンを無効にする
+		MenuBar.ConnectButton.enabled = true;
+		MenuBar.DisconnectButton.enabled = false;
+
+		// 切断
+		BeamClientManager.Disconnect();
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -162,7 +172,6 @@ class MenuBar
 
 		if( Flag && Setting.BouyomiChanLocation == '' )
 		{
-			alert('棒読みちゃん連携が有効にされましたが、コメントを読み上げさせるには\n棒読みちゃんの場所を指定する必要があります。');
 			Setting.Open();
 		}
 	}
@@ -180,14 +189,16 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static OpenVersionInfo()
 	{
+		const pjson = require('./package.json');
+		const Version = pjson.version;
 		var Data =
 		[
 			'Beam Comment Viewer\n',
-			'Version 0.0.0\n',
+			'Version '+Version+'\n',
 			'\n',
 			'GitHub: https://github.com/HIJIKIsw/Beam-Comment-Viewer\n',
 			'\n',
-			'©2017 HIJIKIsw\n'
+			'©2017 HIJIKIsw'
 		].join("");
 		alert(Data);
 	}
