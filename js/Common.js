@@ -148,21 +148,27 @@ class Common
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= マシンのユニークIDを取得する
+	//= MAC アドレスを取得する
 	//----------------------------------------------------------------------------------------------
-	static GetMachineUniqueID()
+	static GetMacAddress()
 	{
-		const machineid = require('node-machine-id');
-		var Result = machineid.machineIdSync();
-		return Result;
+		const macaddress = require('macaddress');
+		const NI = macaddress.networkInterfaces();
+
+		var Result = '';
+		for (var i in NI) {
+			Result += NI[i].mac;
+		}
+
+	    return Result;
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= ユニークIDをシードとして暗号化
+	//= MAC アドレスをシードとして暗号化
 	//----------------------------------------------------------------------------------------------
 	static Encrypt(PlainText)
 	{
-		const UniqueID = Common.GetMachineUniqueID();
+		const UniqueID = Common.GetMacAddress();
 		const crypto = require("crypto");
 		var cipher = crypto.createCipher('aes192', UniqueID);
 
@@ -175,11 +181,11 @@ class Common
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= ユニークIDをシードとして復号
+	//= MAC アドレスをシードとして復号
 	//----------------------------------------------------------------------------------------------
 	static Decrypt(Encrypted)
 	{
-		const UniqueID = Common.GetMachineUniqueID();
+		const UniqueID = Common.GetMacAddress();
 		const crypto = require("crypto");
 		var decipher = crypto.createDecipher('aes192', UniqueID);
 
