@@ -13,6 +13,8 @@ Beam ( https://beam.pro/ )で、自身の配信ページに書き込まれたチ
 
 当面は、Windows 7 / 8 / 8.1 / 10 が動作対象 OS となります。
 
+使い方は ののたま様 「[【Beam】BeamCommentViewerの使い方](http://ch.nicovideo.jp/nonota/blomaga/ar1178037 "【Beam】BeamCommentViewerの使い方")」 (ブロマガ) をご覧ください。
+
 ## 過度な期待はしないで！
 
 先述の通り、このアプリケーションはニコ生における NCV の役割を Beam 上で果たす目的で開発されましたが、
