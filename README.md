@@ -27,7 +27,7 @@ NW.js v0.19.5
 
 Required modules:
 * beam-client-node
-* node-machine-id
+* macaddress
 
 ## ライセンス
 
