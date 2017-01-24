@@ -67,10 +67,10 @@ class BeamClientManager
 			if( this.Socket.isConnected() )
 			{
 				this.Socket.close();
+				ViewCommentArea.SystemMessage('Beam から切断しました。');
 			}
 		}
 
-		ViewCommentArea.SystemMessage('Beam から切断しました。');
 	}
 
 	//----------------------------------------------------------------------------------------------
