@@ -17,7 +17,7 @@ Beam ( https://beam.pro/ )で、自身の配信ページに書き込まれたチ
 
 ## ダウンロード
 
-ダウンロードは [こちら](./releases) からどうぞ。
+ダウンロードは [こちら](https://github.com/HIJIKIsw/Beam-Comment-Viewer/releases) からどうぞ。
 
 特に理由がない限り最新版をお使いください。
 
