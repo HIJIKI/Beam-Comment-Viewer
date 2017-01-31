@@ -15,6 +15,12 @@ Beam ( https://beam.pro/ )で、自身の配信ページに書き込まれたチ
 
 使い方は ののたま様 「[【Beam】BeamCommentViewerの使い方](http://ch.nicovideo.jp/nonota/blomaga/ar1178037 "【Beam】BeamCommentViewerの使い方")」 (ブロマガ) をご覧ください。
 
+## ダウンロード
+
+ダウンロードは [こちら](./releases) からどうぞ。
+
+特に理由がない限り最新版をお使いください。
+
 ## 過度な期待はしないで！
 
 先述の通り、このアプリケーションはニコ生における NCV の役割を Beam 上で果たす目的で開発されましたが、
