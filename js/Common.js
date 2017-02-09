@@ -196,4 +196,88 @@ class Common
 		Decrypted += decipher.final('utf8');
 		return Decrypted;
 	}
+
+	//----------------------------------------------------------------------------------------------
+	//= アップデートを確認する
+	//----------------------------------------------------------------------------------------------
+	static CheckUpdate(FromMenuBar)
+	{
+		const pjson = require('./package.json');
+		var CurrentVersion = pjson.version;
+		var LatestVersion = null;
+
+		console.log("Checking Update...");
+		console.log("Currently Version: "+CurrentVersion);
+
+		const http = require('http');
+		const URL = 'http://bcv.holyweb.pgw.jp/latestversion';
+
+		http.get(URL, (res) => {
+			if( res.statusCode != 200 )
+			{
+				// メニューバーから確認した場合
+				if( FromMenuBar )
+				{
+					alert("アップデートの確認に失敗しました: "+res.statusCode);
+				}
+				console.log("Update Check is Failed: "+res.statusCode);
+			}
+			else
+			{
+				let body = '';
+				res.setEncoding('utf8');
+				res.on('data', (chunk) => {
+					body += chunk;
+				});
+				res.on('end', (res) => {
+					LatestVersion = body;
+					console.log("Latest Version: "+LatestVersion);
+					// 最新バージョンの取得に成功した場合
+					if( LatestVersion != null )
+					{
+						// アップデートが必要な場合
+						if( LatestVersion != CurrentVersion )
+						{
+							console.log("Need Update.");
+							var DoOpen = confirm("新しいバージョン「"+ LatestVersion +"」が公開されています。\nダウンロードページを開きますか？");
+							if( DoOpen )
+							{
+								const DownloadURL = "https://github.com/HIJIKIsw/Beam-Comment-Viewer/releases";
+								Common.OpenLink(DownloadURL);
+							}
+						}
+						// アップデートが不要な場合
+						else
+						{
+							// メニューバーから確認した場合
+							if( FromMenuBar )
+							{
+								alert("お使いのバージョンは最新です。");
+							}
+							console.log("Not Need Update.");
+						}
+					}
+				});
+			}
+		})
+		// エラー時
+		.on('error', (e) => {
+			// メニューバーから確認した場合
+			if( FromMenuBar )
+			{
+				alert("アップデートの確認に失敗しました: "+e.message);
+			}
+			console.log("Update Check is Failed: "+e.message);
+		});
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= リンクをデフォルトブラウザで開く
+	//----------------------------------------------------------------------------------------------
+	static OpenLink(URL)
+	{
+		const GUI = require('nw.gui')
+		GUI.Shell.openExternal(URL);
+	}
+
 }

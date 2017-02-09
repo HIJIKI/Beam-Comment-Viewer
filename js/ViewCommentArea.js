@@ -69,7 +69,7 @@ class ViewCommentArea
 		
 		// コメント内の URL をリンクに置き換える
 		var Target = $('#CommentOutputPosition').prev().find('.Comment span');
-		$(Target).html( $(Target).html().replace(/((?:https?|ftp):\/\/[^\s　]+)/g, '<span class="Link" onclick="ViewCommentArea.OpenLink(\'$1\');">$1</span>') );
+		$(Target).html( $(Target).html().replace(/((?:https?|ftp):\/\/[^\s　]+)/g, '<span class="Link" onclick="Common.OpenLink(\'$1\');">$1</span>') );
 
 		// コメントが指定件数を超えた場合は古い物から削除
 		this.RemoveExceedComment();
@@ -79,15 +79,6 @@ class ViewCommentArea
 		{
 			ViewCommentArea.scrollTop(ViewCommentArea.get(0).scrollHeight);
 		}
-	}
-
-	//----------------------------------------------------------------------------------------------
-	//= リンクをデフォルトブラウザで開く
-	//----------------------------------------------------------------------------------------------
-	static OpenLink(URL)
-	{
-		const GUI = require('nw.gui')
-		GUI.Shell.openExternal(URL);
 	}
 
 	//----------------------------------------------------------------------------------------------
