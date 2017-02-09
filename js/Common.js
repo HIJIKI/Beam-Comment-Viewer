@@ -143,8 +143,8 @@ class Common
 		// RemoteTalk が見つかった場合のみ
 		if( Common.Exist(RemoteTalk) )
 		{
-			Exec(RemoteTalk + ' /talk ' + '"'+Message+'"');
-		}		
+			Exec('"' + RemoteTalk + '"' + ' /talk ' + '"'+Message+'"');
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
