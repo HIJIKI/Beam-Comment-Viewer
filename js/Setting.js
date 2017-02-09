@@ -19,15 +19,14 @@ class Setting
 			CallBouyomiChan:		false,
 			BouyomiChanLocation:	"",
 			CallUserName:			0,
-			MaxCommentLength:		100
+			MaxDisplayComment:		100,
+			CheckUpdate:			true
 		};
 
 		// 名前読み上げ設定の定数
 		this.CALL_USER_NAME_OFF		= 0
 		this.CALL_USER_NAME_BEFORE	= 1
 		this.CALL_USER_NAME_AFTER	= 2
-
-		this.MaxCommentLength = this.Defaults.MaxCommentLength;
 
 		// RemoteTalk の相対パス (BouyomiChan.exe からの)
 		this.RemoteTalkRelativePath = 'RemoteTalk\\RemoteTalk.exe';
@@ -100,6 +99,8 @@ class Setting
 		if( t.CallBouyomiChan		!= un ) { ls.CallBouyomiChan		= st(t.CallBouyomiChan); }
 		if( t.BouyomiChanLocation	!= un ) { ls.BouyomiChanLocation	= st(t.BouyomiChanLocation); }
 		if( t.CallUserName			!= un ) { ls.CallUserName			= st(t.CallUserName); }
+		if( t.MaxDisplayComment		!= un ) { ls.MaxDisplayComment		= st(t.MaxDisplayComment); }
+		if( t.CheckUpdate			!= un ) { ls.CheckUpdate			= st(t.CheckUpdate); }
 
 		// パスワードのみ例外的に暗号化して保存する
 		if( t.Password				!= un )
@@ -127,6 +128,8 @@ class Setting
 		t.CallBouyomiChan		= ls.CallBouyomiChan		!= un ? p(ls.CallBouyomiChan)		: t.Defaults.CallBouyomiChan;
 		t.BouyomiChanLocation	= ls.BouyomiChanLocation	!= un ? p(ls.BouyomiChanLocation)	: t.Defaults.BouyomiChanLocation;
 		t.CallUserName			= ls.CallUserName			!= un ? p(ls.CallUserName)			: t.Defaults.CallUserName;
+		t.MaxDisplayComment		= ls.MaxDisplayComment		!= un ? p(ls.MaxDisplayComment)		: t.Defaults.MaxDisplayComment;
+		t.CheckUpdate			= ls.CheckUpdate			!= un ? p(ls.CheckUpdate)			: t.Defaults.CheckUpdate;
 
 		// パスワードのみ例外的に復号して読み込む
 		t.Password = ls.Password != un ? Common.Decrypt(p(ls.Password))	: t.Defaults.Password;
@@ -134,14 +137,16 @@ class Setting
 		console.log("------------------------------")
 		console.log("Setting loaded.")
 		console.log("------------------------------")
-		console.log("UserName: "+typeof(this.UserName)+" "+this.UserName);
-		console.log("Password: "+typeof(this.Password)+" "+this.Password);
-		console.log("AlwaysOnTop: "+typeof(this.AlwaysOnTop)+" "+this.AlwaysOnTop);
-		console.log("PutWhisper: "+typeof(this.PutWhisper)+" "+this.PutWhisper);
-		console.log("CallWhisper: "+typeof(this.CallWhisper)+" "+this.CallWhisper);
-		console.log("CallBouyomiChan: "+typeof(this.CallBouyomiChan)+" "+this.CallBouyomiChan);
-		console.log("BouyomiChanLocation: "+typeof(this.BouyomiChanLocation)+" "+this.BouyomiChanLocation);
-		console.log("CallUserName: "+typeof(this.CallUserName)+" "+this.CallUserName);
+		console.log("UserName: ("+typeof(this.UserName)+") "+this.UserName);
+		console.log("Password: ("+typeof(this.Password)+") "+this.Password.replace(/./g , "*"));
+		console.log("AlwaysOnTop: ("+typeof(this.AlwaysOnTop)+") "+this.AlwaysOnTop);
+		console.log("PutWhisper: ("+typeof(this.PutWhisper)+") "+this.PutWhisper);
+		console.log("CallWhisper: ("+typeof(this.CallWhisper)+") "+this.CallWhisper);
+		console.log("CallBouyomiChan: ("+typeof(this.CallBouyomiChan)+") "+this.CallBouyomiChan);
+		console.log("BouyomiChanLocation: ("+typeof(this.BouyomiChanLocation)+") "+this.BouyomiChanLocation);
+		console.log("CallUserName: ("+typeof(this.CallUserName)+") "+this.CallUserName);
+		console.log("MaxDisplayComment: ("+typeof(this.MaxDisplayComment)+") "+this.MaxDisplayComment);
+		console.log("CheckUpdate: ("+typeof(this.CheckUpdate)+") "+this.CheckUpdate);
 		console.log("------------------------------")
 		//*/
 	}

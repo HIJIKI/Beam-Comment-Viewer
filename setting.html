@@ -45,6 +45,21 @@
 	</fieldset>
 </fieldset>
 
+<fieldset id="Other">
+	<legend>その他</legend>
+	<p id="MaxDisplayComment">
+		<span>最大コメント表示件数 :</span>
+		<span>
+			<input id="MaxDisplayCommentInput" type="number" min="0" max="999" maxlength="3">
+		</span>
+		<span>(0 で無制限)</span>
+	</p>
+	<p id="CheckUpdate">
+		<input id="CheckUpdateCheckbox" type="checkbox">
+		<label for="CheckUpdateCheckbox">起動時にアップデートを確認する</label>
+	</p>
+</fieldset>
+
 <div id="CloseButtons">
 	<span id="OKButton">OK</span>
 	<span id="CancelButton">キャンセル</span>
@@ -62,6 +77,8 @@
 		$('#CallBouyomiChanCheckbox')		.prop('checked', Setting.CallBouyomiChan);
 		$('#BouyomiChanLocationInput')		.val(Setting.BouyomiChanLocation);
 		$('[name=CallUserNameRadio]')		.val([Setting.CallUserName]);
+		$('#MaxDisplayCommentInput')		.val(Setting.MaxDisplayComment);
+		$('#CheckUpdateCheckbox')			.prop('checked', Setting.CheckUpdate);
 
 		// OK ボタンが押された
 		$('#OKButton').click(function()
@@ -73,9 +90,14 @@
 			Setting.CallBouyomiChan			= $('#CallBouyomiChanCheckbox').prop('checked');
 			Setting.BouyomiChanLocation		= $('#BouyomiChanLocationInput').val();
 			Setting.CallUserName			= $('[name=CallUserNameRadio]:checked').val();
+			Setting.MaxDisplayComment		= $('#MaxDisplayCommentInput').val();
+			Setting.CheckUpdate				= $('#CheckUpdateCheckbox').prop('checked');
 
 			// メニューバーを更新
 			MenuBar.CheckboxUpdate();
+
+			// 最大表示件数を超えたコメントを削除
+			ViewCommentArea.RemoveExceedComment();
 
 			// 設定画面を閉じる
 			Setting.Close();
@@ -115,6 +137,46 @@
 		$('#CancelButton').click(function()
 		{
 			Setting.Close();
+		});
+
+		// MaxDisplayComment が変更された
+		$('#MaxDisplayCommentInput').keydown(function(e)
+		{
+			// 特定のキー以外は無視する
+			var k = e.keyCode;
+			if
+			(
+				!(k >= 37 && k <= 40) &&										// 十字
+				!(k == 8) &&													// BackSpace
+				!(k == 46) &&													// Delete
+				!(k >= 48 && k <= 57) &&										// 0-9
+				!(k >= 96 && k <= 105)											// テンキー 0-9
+			)
+			{
+				return false;
+			}
+		});
+		$('#MaxDisplayCommentInput').on('input', function()
+		{
+			// 桁数を MaxLength 以内に収める
+			if ($(this).val().length > $(this).attr('maxlength'))
+			{
+				$(this).val($(this).val().slice(0, $(this).attr('maxlength')));
+			}
+
+			// 許容数値内にリストア
+			var Min = parseInt($(this).attr('min'));
+			var Max = parseInt($(this).attr('max'));
+			var Value = parseInt($(this).val());
+			Value = Math.min(Max, Math.max(Min, Value));
+			$(this).val(Value);
+
+			// 全て消された場合は 0 でリストア
+			var Value = parseInt($(this).val());
+			if( $(this).val().length <= 0 )
+			{
+				$(this).val(0);
+			}
 		});
 	})();
 </script>

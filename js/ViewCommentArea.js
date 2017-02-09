@@ -71,11 +71,8 @@ class ViewCommentArea
 		var Target = $('#CommentOutputPosition').prev().find('.Comment span');
 		$(Target).html( $(Target).html().replace(/((?:https?|ftp):\/\/[^\s　]+)/g, '<span class="Link" onclick="ViewCommentArea.OpenLink(\'$1\');">$1</span>') );
 
-		// コメントが 100 件を超えた場合は古い物から削除
-		var CommentLength = $('#ViewCommentArea #Body .Row').length;
-		if( CommentLength > Setting.MaxCommentLength ){
-			$('#ViewCommentArea #Body .Row:first-child').remove();
-		}
+		// コメントが指定件数を超えた場合は古い物から削除
+		this.RemoveExceedComment();
 
 		// コメント出力前にスクロールバーが一番下にあった場合はスクロールバーを一番下に再調整
 		if( ScrollBarIsBottom )
@@ -93,6 +90,20 @@ class ViewCommentArea
 		GUI.Shell.openExternal(URL);
 	}
 
+	//----------------------------------------------------------------------------------------------
+	//= 指定件数を超えたコメントを古いものから削除する
+	//----------------------------------------------------------------------------------------------
+	static RemoveExceedComment()
+	{
+		var Max = Setting.MaxDisplayComment;
+		if( Max > 0 )
+		{
+			while( $('#ViewCommentArea #Body .Row').length > Max )
+			{
+				$('#ViewCommentArea #Body .Row:first-child').remove();
+			}
+		}
+	}
 
 	//----------------------------------------------------------------------------------------------
 	//= ユーザーアイコンの表示/非表示を切り替え

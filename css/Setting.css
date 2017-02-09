@@ -149,3 +149,9 @@ input[type='file']
 {
 	color: #7f8c8d;
 }
+
+/* MaxDisplayComment */
+#MaxDisplayComment input
+{
+	width: 40px;
+}
