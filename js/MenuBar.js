@@ -16,11 +16,18 @@ class MenuBar
 		//= 各ボタンの定義
 		//------------------------------------------------------------------------------------------
 
-		// 接続 ボタン
-		this.ConnectButton = new Gui.MenuItem(
+		// 自身のチャンネルに接続 ボタン
+		this.ConnectMyChannelButton = new Gui.MenuItem(
 		{
-			label: '接続',
-			click: function(){ MenuBar.Connect(); }
+			label: '自身のチャンネルに接続',
+			click: function(){ MenuBar.ConnectMyChannel(); }
+		});
+
+		// チャンネル名を指定して接続 ボタン
+		this.ConnectByChannelNameButton = new Gui.MenuItem(
+		{
+			label: 'チャンネル名を指定して接続',
+			click: function(){ MenuBar.ConnectByChannelName(); }
 		});
 
 		// 切断ボタン
@@ -90,7 +97,9 @@ class MenuBar
 		//------------------------------------------------------------------------------------------
 		// ファイル
 		this.File = new Gui.Menu();
-		this.File.append(this.ConnectButton);									// 接続
+		this.File.append(this.ConnectMyChannelButton);							// 自身のチャンネルに接続
+		this.File.append(this.ConnectByChannelNameButton);						// チャンネル名を指定して接続
+
 		this.File.append(this.DisconnectButton);								// 切断
 		this.File.append(Separator);											// --------
 		this.File.append(this.ExitButton);										// 終了
@@ -128,15 +137,39 @@ class MenuBar
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= 接続
+	//= 自身のチャンネルに接続
 	//----------------------------------------------------------------------------------------------
-	static Connect()
+	static ConnectMyChannel()
 	{
 		// 接続ボタンを無効にする
-		MenuBar.ConnectButton.enabled = false;
+		MenuBar.ConnectMyChannelButton.enabled = false;
+		MenuBar.ConnectByChannelNameButton.enabled = false;
 
 		// 接続
-		BeamClientManager.Connect(Setting.UserName, Setting.Password);
+		BeamClientManager.Connect(Setting.UserName, Setting.Password, Setting.UserName);
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= チャンネル名を指定して接続
+	//----------------------------------------------------------------------------------------------
+	static ConnectByChannelName()
+	{
+		// 入力を求める
+		this.ChannelName = this.ChannelName == undefined ? '' : this.ChannelName;
+		var cn = prompt('接続したいチャンネル名を入力してください。', this.ChannelName);
+
+		// OK ボタンが押された場合
+		if( cn != null )
+		{
+			this.ChannelName = cn;
+
+			// 接続ボタンを無効にする
+			MenuBar.ConnectMyChannelButton.enabled = false;
+			MenuBar.ConnectByChannelNameButton.enabled = false;
+
+			// 接続
+			BeamClientManager.Connect(Setting.UserName, Setting.Password, this.ChannelName);
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -145,7 +178,8 @@ class MenuBar
 	static Disconnect()
 	{
 		// 接続ボタンを有効に、切断ボタンを無効にする
-		MenuBar.ConnectButton.enabled = true;
+		MenuBar.ConnectMyChannelButton.enabled = true;
+		MenuBar.ConnectByChannelNameButton.enabled = true;
 		MenuBar.DisconnectButton.enabled = false;
 
 		// 切断

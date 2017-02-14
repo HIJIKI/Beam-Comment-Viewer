@@ -3,7 +3,6 @@
 //--------------------------------------------------------------------------------------------------
 class Common
 {
-
 	//----------------------------------------------------------------------------------------------
 	//= 初期化
 	//----------------------------------------------------------------------------------------------
@@ -278,6 +277,31 @@ class Common
 	{
 		const GUI = require('nw.gui')
 		GUI.Shell.openExternal(URL);
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//= ステータスを設定する
+	//----------------------------------------------------------------------------------------------
+	static SetStatus(Status)
+	{
+		const Win = nw.Window.get();
+		const pjson = require('./package.json');
+
+		var WindowTitle = undefined;
+
+		if( typeof Status == 'string' && Status.length > 0 )
+		{
+			WindowTitle = pjson.window.title+' ('+Status+')';
+		}
+		else
+		{
+			WindowTitle = pjson.window.title;
+		}
+
+		if( WindowTitle != undefined )
+		{
+			Win.title = WindowTitle;
+		}
 	}
 
 }

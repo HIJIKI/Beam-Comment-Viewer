@@ -15,7 +15,7 @@ class BeamClientManager
 	//----------------------------------------------------------------------------------------------
 	//= 接続
 	//----------------------------------------------------------------------------------------------
-	static Connect(UserName, Password)
+	static Connect(_UserName, _Password, _ChannelName)
 	{
 		const BeamSocket = require('beam-client-node/lib/ws');
 		const BeamClient = require('beam-client-node');
@@ -30,30 +30,72 @@ class BeamClientManager
 		}
 
 		let userInfo;
+		let ChannelId;
+		let ChannelName;
+		if( typeof _ChannelName == 'string' && _ChannelName.length > 0 )
+		{
+			ChannelName = _ChannelName;
+		}
+		else
+		{
+			ChannelName = Setting.UserName;
+		}
+
+		ViewCommentArea.SystemMessage(ChannelName+' のチャンネルに接続します。')
+
 		var client = new BeamClient();
-		client.use('password', {
-			username: UserName,
-			password: Password,
-		})
-		.attempt()
+
+		client.request('GET', 'channels/'+ChannelName)
 		.then(response => {
-			userInfo = response.body;
-			return client.chat.join(response.body.channel.id);
-		})
-		.then(response => {
-			const body = response.body;
-			this.Socket = BeamClientManager.CreateChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
-			return this.Socket;
+			ChannelId = response.body.id;
+
+			// チャンネルID が正常に取得できたかどうか
+			if( ChannelId == undefined )
+			{
+				// 接続に失敗した場合はメニューバーのボタンを元に戻す
+				MenuBar.ConnectMyChannelButton.enabled = true;
+				MenuBar.ConnectByChannelNameButton.enabled = true;
+
+				BeamClientManager.Error('チャンネルが見つかりませんでした。', '-')
+			}
+			else
+			{
+				console.log('The ID from '+ChannelName+' is '+ChannelId);
+				client.use('password', {
+					username: _UserName,
+					password: _Password,
+				})
+				.attempt()
+				.then(response => {
+					userInfo = response.body;
+					return client.chat.join(ChannelId);
+				})
+				.then(response => {
+					const body = response.body;
+					this.Socket = BeamClientManager.CreateChatSocket(userInfo.id, ChannelId, body.endpoints, body.authkey, ChannelName);
+					return this.Socket;
+				})
+				.catch(error => {
+					// 接続に失敗した場合はメニューバーのボタンを元に戻す
+					MenuBar.ConnectMyChannelButton.enabled = true;
+					MenuBar.ConnectByChannelNameButton.enabled = true;
+
+					var ErrorMessage = error.message.statusMessage;
+					var ErrorCode = error.message.statusCode;
+					BeamClientManager.Error(ErrorMessage, ErrorCode);
+				});
+			}
 		})
 		.catch(error => {
 			// 接続に失敗した場合はメニューバーのボタンを元に戻す
-			MenuBar.ConnectButton.enabled = true;
+			MenuBar.ConnectMyChannelButton.enabled = true;
+			MenuBar.ConnectByChannelNameButton.enabled = true;
 
 			var ErrorMessage = error.message.statusMessage;
 			var ErrorCode = error.message.statusCode;
 			BeamClientManager.Error(ErrorMessage, ErrorCode);
 		});
-
+		//*/
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -67,7 +109,9 @@ class BeamClientManager
 			if( this.Socket.isConnected() )
 			{
 				this.Socket.close();
-				ViewCommentArea.SystemMessage('Beam から切断しました。');
+				ViewCommentArea.SystemMessage('切断しました。');
+
+				Common.SetStatus(null);
 			}
 		}
 
@@ -81,7 +125,7 @@ class BeamClientManager
 		// ログイン情報が間違っていた場合
 		if( ErrorCode == 401 )
 		{
-			alert('Beam へのログインに失敗しました。\nBeam アカウントが正しく設定されていることを確認してください。');
+			alert('ログインに失敗しました。\nBeam アカウントが正しく設定されていることを確認してください。');
 			return;
 		}
 		
@@ -102,7 +146,7 @@ class BeamClientManager
 	//----------------------------------------------------------------------------------------------
 	//= チャットソケットを作成
 	//----------------------------------------------------------------------------------------------
-	static CreateChatSocket(userId, channelId, endpoints, authkey)
+	static CreateChatSocket(userId, channelId, endpoints, authkey, channelName)
 	{
 		const BeamSocket = require('beam-client-node/lib/ws');
 		const socket = new BeamSocket(endpoints).boot();
@@ -113,9 +157,10 @@ class BeamClientManager
 			// 切断ボタンを有効にする
 			MenuBar.DisconnectButton.enabled = true;
 
-			ViewCommentArea.SystemMessage('Beam への接続に成功しました。');
+			ViewCommentArea.SystemMessage('接続に成功しました。');
 			BeamClientManager.EventRegister();
 
+			Common.SetStatus(channelName+' に接続中');
 			return;
 		})
 		// エラー時

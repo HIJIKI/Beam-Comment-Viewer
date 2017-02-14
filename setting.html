@@ -1,10 +1,14 @@
 <fieldset id="BeamAccount">
-	<legend>Beam アカウント</legend>
+	<legend>Beam 接続設定</legend>
 	<p id="UserName">
 		<input id="UserNameInput" type="text" placeholder="ユーザー名">
 	</p>
 	<p id="Password">
 		<input id="PasswordInput" type="password" placeholder="パスワード">
+	</p>
+	<p id="AutoConnect">
+		<input id="AutoConnectCheckbox" type="checkbox">
+		<label for="AutoConnectCheckbox">起動時に自身のチャンネルに自動接続する<label>
 	</p>
 </fieldset>
 <fieldset id="Whisper">
@@ -72,6 +76,7 @@
 		// 各項目の状態を設定と同期する
 		$('#UserNameInput')					.val(Setting.UserName);
 		$('#PasswordInput')					.val(Setting.Password);
+		$('#AutoConnectCheckbox')			.prop('checked', Setting.AutoConnect);
 		$('#PutWhisperCheckbox')			.prop('checked', Setting.PutWhisper);
 		$('#CallWhisperCheckbox')			.prop('checked', Setting.CallWhisper);
 		$('#CallBouyomiChanCheckbox')		.prop('checked', Setting.CallBouyomiChan);
@@ -85,6 +90,7 @@
 		{
 			Setting.UserName				= $('#UserNameInput').val();
 			Setting.Password				= $('#PasswordInput').val();
+			Setting.AutoConnect				= $('#AutoConnectCheckbox').prop('checked');
 			Setting.PutWhisper				= $('#PutWhisperCheckbox').prop('checked');
 			Setting.CallWhisper				= $('#CallWhisperCheckbox').prop('checked');
 			Setting.CallBouyomiChan			= $('#CallBouyomiChanCheckbox').prop('checked');

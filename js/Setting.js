@@ -13,6 +13,7 @@ class Setting
 		{
 			UserName: 				"",
 			Password:				"",
+			AutoConnect:			false,
 			AlwaysOnTop:			false,
 			PutWhisper:				false,
 			CallWhisper:			false,
@@ -93,6 +94,7 @@ class Setting
 
 		// undefined でない値のみ保存する
 		if( t.UserName				!= un ) { ls.UserName				= st(t.UserName); }
+		if( t.AutoConnect			!= un ) { ls.AutoConnect			= st(t.AutoConnect); }
 		if( t.AlwaysOnTop			!= un ) { ls.AlwaysOnTop			= st(t.AlwaysOnTop); }
 		if( t.PutWhisper			!= un ) { ls.PutWhisper				= st(t.PutWhisper); }
 		if( t.CallWhisper			!= un ) { ls.CallWhisper			= st(t.CallWhisper); }
@@ -122,6 +124,7 @@ class Setting
 
 		// 各データを読み込む (undefined の場合は初期値を代入する)
 		t.UserName				= ls.UserName				!= un ? p(ls.UserName)				: t.Defaults.UserName;
+		t.AutoConnect			= ls.AutoConnect			!= un ? p(ls.AutoConnect)			: t.Defaults.AutoConnect;
 		t.AlwaysOnTop			= ls.AlwaysOnTop			!= un ? p(ls.AlwaysOnTop)			: t.Defaults.AlwaysOnTop;
 		t.PutWhisper			= ls.PutWhisper				!= un ? p(ls.PutWhisper)			: t.Defaults.PutWhisper;
 		t.CallWhisper			= ls.CallWhisper			!= un ? p(ls.CallWhisper)			: t.Defaults.CallWhisper;
@@ -139,6 +142,7 @@ class Setting
 		console.log("------------------------------")
 		console.log("UserName: ("+typeof(this.UserName)+") "+this.UserName);
 		console.log("Password: ("+typeof(this.Password)+") "+this.Password.replace(/./g , "*"));
+		console.log("AutoConnect: ("+typeof(this.AutoConnect)+") "+this.AutoConnect);
 		console.log("AlwaysOnTop: ("+typeof(this.AlwaysOnTop)+") "+this.AlwaysOnTop);
 		console.log("PutWhisper: ("+typeof(this.PutWhisper)+") "+this.PutWhisper);
 		console.log("CallWhisper: ("+typeof(this.CallWhisper)+") "+this.CallWhisper);
