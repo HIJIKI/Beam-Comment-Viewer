@@ -141,12 +141,20 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static ConnectMyChannel()
 	{
-		// 接続ボタンを無効にする
-		MenuBar.ConnectMyChannelButton.enabled = false;
-		MenuBar.ConnectByChannelNameButton.enabled = false;
+		// Beam 接続設定が済んでいない場合
+		if( Setting.UserName.length < 1 || Setting.Password.length < 1 )
+		{
+			alert('Beam アカウントが正しく設定されていません。');
+		}
+		else
+		{
+			// 接続ボタンを無効にする
+			MenuBar.ConnectMyChannelButton.enabled = false;
+			MenuBar.ConnectByChannelNameButton.enabled = false;
 
-		// 接続
-		BeamClientManager.Connect(Setting.UserName, Setting.Password, Setting.UserName);
+			// 接続
+			BeamClientManager.Connect(Setting.UserName, Setting.Password, Setting.UserName);
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -154,21 +162,29 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static ConnectByChannelName()
 	{
-		// 入力を求める
-		this.ChannelName = this.ChannelName == undefined ? '' : this.ChannelName;
-		var cn = prompt('接続したいチャンネル名を入力してください。', this.ChannelName);
-
-		// OK ボタンが押された場合
-		if( cn != null )
+		// Beam 接続設定が済んでいない場合
+		if( Setting.UserName.length < 1 || Setting.Password.length < 1 )
 		{
-			this.ChannelName = cn;
+			alert('Beam アカウントが正しく設定されていません。');
+		}
+		else
+		{
+			// 入力を求める
+			this.ChannelName = this.ChannelName == undefined ? '' : this.ChannelName;
+			var cn = prompt('接続したいチャンネル名を入力してください。', this.ChannelName);
 
-			// 接続ボタンを無効にする
-			MenuBar.ConnectMyChannelButton.enabled = false;
-			MenuBar.ConnectByChannelNameButton.enabled = false;
+			// OK ボタンが押された場合
+			if( cn != null )
+			{
+				this.ChannelName = cn;
 
-			// 接続
-			BeamClientManager.Connect(Setting.UserName, Setting.Password, this.ChannelName);
+				// 接続ボタンを無効にする
+				MenuBar.ConnectMyChannelButton.enabled = false;
+				MenuBar.ConnectByChannelNameButton.enabled = false;
+
+				// 接続
+				BeamClientManager.Connect(Setting.UserName, Setting.Password, this.ChannelName);
+			}
 		}
 	}
 
