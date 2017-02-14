@@ -1,7 +1,7 @@
 {
 	"//":"アプリケーションの名前 (同じ名前の NW.js 製アプリ間で LocalStorage が共有されます。なるべくユニークなものにしてください。)",
 	"name": "HIJIKI SOFT\\Beam Comment Viewer",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"main": "index.html",
 	"window":
 	{
