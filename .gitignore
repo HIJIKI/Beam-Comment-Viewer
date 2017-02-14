@@ -29,9 +29,12 @@ node_modules
 # Windows Shortcut File
 *.lnk
 
-# 7-zip
-7zip
+# Wrapper Scraps
+wrapper/*
+!wrapper/BCVWrapper.hsp
 
-# Build Folder
-bin
-tmp
+# Build
+Build
+
+# ReleaseTemplate
+release_template/app

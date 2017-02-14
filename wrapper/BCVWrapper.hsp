@@ -1,0 +1,9 @@
+#packopt hide 1
+
+chdir "./app"
+
+nwjs = "Beam Comment Viewer.exe"
+bcv = "BCV"
+
+exec "\"./"+nwjs+"\" ./"+bcv
+end

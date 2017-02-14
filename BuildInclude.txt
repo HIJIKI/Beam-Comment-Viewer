@@ -1,8 +1,0 @@
-css
-img
-js
-lib
-node_modules
-index.html
-setting.html
-package.json
