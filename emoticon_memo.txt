@@ -1,0 +1,13 @@
+<!-- emoticon memo -->
+
+<div class="emoticon" style="
+    display: inline-block;
+    width: 24px;
+    background-image: url('https://beam.pro/_latest/emoticons/food.png');
+    height: 24px;
+    border: none;
+    background-repeat: no-repeat;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+"></div>
