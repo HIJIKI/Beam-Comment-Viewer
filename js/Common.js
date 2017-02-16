@@ -131,22 +131,6 @@ class Common
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= Message を棒読みちゃんに読ませる
-	//----------------------------------------------------------------------------------------------
-	static SendBouyomi(Message)
-	{
-		const Exec = require('child_process').exec;
-		var BouyomiChan = Setting.BouyomiChanLocation;
-		var BouyomiDir = Common.FullPath2Dir(BouyomiChan);
-		var RemoteTalk = BouyomiDir+'\\'+Setting.RemoteTalkRelativePath;
-		// RemoteTalk が見つかった場合のみ
-		if( Common.Exist(RemoteTalk) )
-		{
-			Exec('"' + RemoteTalk + '"' + ' /talk ' + '"'+Message+'"');
-		}
-	}
-
-	//----------------------------------------------------------------------------------------------
 	//= MAC アドレスを取得する
 	//----------------------------------------------------------------------------------------------
 	static GetMacAddress()

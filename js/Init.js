@@ -9,6 +9,7 @@
 	MenuBar.Init();
 	Setting.Init();
 	BeamClientManager.Init();
+	BouyomiChanManager.Init();
 	SendCommentArea.Init();
 	ViewCommentArea.Init();
 

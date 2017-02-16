@@ -51,9 +51,9 @@ class ViewCommentArea
 		[
 			FirstLine,
 			'	<div class="Icon"><span>'+ImgTag+'</span></div>',
-			'	<div class="UserName"><span title="'+Common.EscapeHtml(UserName)+'">'+Common.EscapeHtml(UserName)+'</span></div>',
-			'	<div class="Time"><span>'+Common.EscapeHtml(Time)+'</span></div>',
-			'	<div class="Comment"><span>'+Common.EscapeHtml(Comment)+'</span></div>',
+			'	<div class="UserName"><span title="'+UserName+'">'+UserName+'</span></div>',
+			'	<div class="Time"><span>'+Time+'</span></div>',
+			'	<div class="Comment"><span>'+Comment+'</span></div>',
 			'</div>'
 		].join("");
 
@@ -67,10 +67,6 @@ class ViewCommentArea
 
 		$('#CommentOutputPosition').before(Data);
 		
-		// コメント内の URL をリンクに置き換える
-		var Target = $('#CommentOutputPosition').prev().find('.Comment span');
-		$(Target).html( $(Target).html().replace(/((?:https?|ftp):\/\/[^\s　]+)/g, '<span class="Link" onclick="Common.OpenLink(\'$1\');">$1</span>') );
-
 		// コメントが指定件数を超えた場合は古い物から削除
 		this.RemoveExceedComment();
 
@@ -97,26 +93,68 @@ class ViewCommentArea
 	}
 
 	//----------------------------------------------------------------------------------------------
-	//= ユーザーアイコンの表示/非表示を切り替え
+	//= 表示用にコメントを整形
 	//----------------------------------------------------------------------------------------------
 	/*
-	static SetShowUserIcon(ShowFlag)
+	 *	@Data: BeamSocket の ChatMessage イベントで受け取ったコメントデータ
+	 */
+	static Format(Data)
 	{
-		if( ShowFlag )
-		{
-			$('.Row .Icon').each(function(index, element)
-			{
-				$(element).css('display', 'flex');
-			});
+		var Ret = {
+			IconURL: undefined,
+			UserName: undefined,
+			Comment: undefined,
+			IsWhisper: undefined
 		}
-		else
+
+		Ret.IconURL = Common.GetAvatarURL(Data.user_id);
+		Ret.UserName = Common.EscapeHtml(Data.user_name);
+		Ret.IsWhisper = Data.message.meta.whisper;
+
+		// メッセージを整形
+		var FormatMessage = '';
+		for( var id in Data.message.message )
 		{
-			$('.Row .Icon').each(function(index, element)
+			var mes = Data.message.message[id];
+			// 絵文字の場合
+			if( mes.type == 'emoticon' )
 			{
-				$(element).css('display', 'none');
-			});
+				FormatMessage += ViewCommentArea.GetEmoticonTag(mes.text);
+			}
+			// リンクの場合
+			else if( mes.type == 'link' )
+			{
+				FormatMessage += ViewCommentArea.GetLinkTag(mes.text);
+			}
+			// それ以外の場合
+			else
+			{
+				FormatMessage += Common.EscapeHtml(mes.text);
+			}
 		}
+
+		Ret.Comment = FormatMessage;
+
+		return Ret;
 	}
-	//*/
+
+	//----------------------------------------------------------------------------------------------
+	//= 指定した URL へのリンクタグを取得
+	//----------------------------------------------------------------------------------------------
+	static GetLinkTag(URL)
+	{
+		var Ret = '<span class="Link" onclick="Common.OpenLink(\''+URL+'\');">'+Common.EscapeHtml(URL)+'</span>';
+		return Ret;
+	}
+
+	//----------------------------------------------------------------------------------------------
+	//=  指定した Emote に対応する絵文字タグを取得
+	//----------------------------------------------------------------------------------------------
+	static GetEmoticonTag(Emote)
+	{
+		// TODO: 絵文字タグを取ってくる処理を追加
+		var Ret = Emote;
+		return Ret;
+	}
 
 }

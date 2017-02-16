@@ -181,57 +181,28 @@ class BeamClientManager
 		// チャット受信時
 		this.Socket.on('ChatMessage', data => {
 
-			var AvatarURL = Common.GetAvatarURL(data.user_id);
-			var UserName = data.user_name;
+			console.log(data);
+
 			var IsWhisper = data.message.meta.whisper;
 
-			// 出力用メッセージ
-			var Message = "";
-
-			// 棒読み用メッセージ
-			var BouyomiMessage = "";
-
-			// 名前を先に読み上げる場合
-			if( Setting.CallUserName == Setting.CALL_USER_NAME_BEFORE )
-			{
-				BouyomiMessage += UserName+" ";
-			}
-
-			// メッセージを用途別に整形
-			for( var id in data.message.message )
-			{
-				var mes = data.message.message[id];
-				Message += mes.text;
-				if( mes.type == 'text' || mes.type == 'link' )
-				{
-					BouyomiMessage += mes.text;
-				}
-			}
-
-			// コメントエリアに出力
+			// コメント出力エリアに投げる
+			var PutMessage = ViewCommentArea.Format(data);
 			if( !IsWhisper || (IsWhisper && Setting.PutWhisper) )
 			{
-				ViewCommentArea.PutComment(AvatarURL, UserName, Message, IsWhisper);
-			}
-
-			// 名前を後に読み上げる場合
-			if( Setting.CallUserName == Setting.CALL_USER_NAME_AFTER )
-			{
-				BouyomiMessage += " "+UserName;
+				ViewCommentArea.PutComment(PutMessage.IconURL, PutMessage.UserName, PutMessage.Comment, PutMessage.IsWhisper)
 			}
 
 			// 棒読みちゃんに投げる
-			if( !IsWhisper || (IsWhisper && Setting.CallWhisper) )
+			if( Setting.CallBouyomiChan )
 			{
-				if( Setting.CallBouyomiChan )
+				// Whisper の扱い設定に応じる
+				if( !IsWhisper || ( IsWhisper && Setting.CallWhisper ) )
 				{
-					BouyomiMessage = BouyomiMessage.trim();
-					if( BouyomiMessage != "" )
-					{
-						Common.SendBouyomi(BouyomiMessage);
-					}
+					var CallMessage = BouyomiChanManager.Format(data);
+					BouyomiChanManager.Call(CallMessage)
 				}
 			}
+
 		});
 
 		// エラー発生時

@@ -53,16 +53,6 @@ class MenuBar
 			click: function() { MenuBar.ToggleAlwaysOnTop(); }
 		});
 
-		// ユーザーアイコンを表示ボタン
-		/*
-		this.ShowUserIconButton = new Gui.MenuItem(
-		{
-			type: 'checkbox',
-			label: 'ユーザーアイコンを表示',
-			click: function() { MenuBar.ToggleShowUserIcon(); }
-		});
-		//*/
-
 		// 棒読みちゃん連携を有効にするボタン
 		this.CallBouyomiChanButton = new Gui.MenuItem(
 		{
@@ -107,7 +97,6 @@ class MenuBar
 		// 表示
 		this.View = new Gui.Menu();
 		this.View.append(this.AlwaysOnTopButton);								// 常に最前面に表示
-		//this.View.append(this.ShowUserIconButton);							// ユーザーアイコンを表示
 
 		// 設定
 		this.Setting = new Gui.Menu();
