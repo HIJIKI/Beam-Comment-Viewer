@@ -190,7 +190,6 @@ class Common
 		var LatestVersion = null;
 
 		console.log("Checking Update...");
-		console.log("Currently Version: "+CurrentVersion);
 
 		const http = require('http');
 		const URL = 'http://bcv.holyweb.pgw.jp/latestversion';
@@ -214,6 +213,7 @@ class Common
 				});
 				res.on('end', (res) => {
 					LatestVersion = body;
+					console.log("Currently Version: "+CurrentVersion);
 					console.log("Latest Version: "+LatestVersion);
 					// 最新バージョンの取得に成功した場合
 					if( LatestVersion != null )

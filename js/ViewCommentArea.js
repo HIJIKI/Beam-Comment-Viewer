@@ -3,13 +3,29 @@
 //--------------------------------------------------------------------------------------------------
 class ViewCommentArea
 {
-
 	//----------------------------------------------------------------------------------------------
 	//= 初期化
 	//----------------------------------------------------------------------------------------------
 	static Init()
 	{
-		
+		// 絵文字置換に使用する manifest.json を取得する
+		const https = require('https');
+		const ManifestUrl = 'https://beam.pro/_latest/emoticons/manifest.json';
+		this.BeamEmoticons = undefined;
+		https.get(ManifestUrl, function(responce) {
+			var Body = '';
+			responce.setEncoding('utf8');
+			responce.on('data', function(chunk) {
+				Body += chunk;
+			});
+			responce.on('end', function() {
+				ViewCommentArea.BeamEmoticons = JSON.parse(Body);
+				console.log('Successful Get Emoticons manifest.json');
+				console.log(ViewCommentArea.BeamEmoticons);
+			});
+		}).on('error', function(e) {
+			console.log('Failed to Emoticons manifest.json: '+e.message);
+		});
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -150,10 +166,64 @@ class ViewCommentArea
 	//----------------------------------------------------------------------------------------------
 	//=  指定した Emote に対応する絵文字タグを取得
 	//----------------------------------------------------------------------------------------------
-	static GetEmoticonTag(Emote)
+	static GetEmoticonTag(_Emoticon)
 	{
-		// TODO: 絵文字タグを取ってくる処理を追加
-		var Ret = Emote;
+		var Ret = _Emoticon;
+
+		var EmoticonData = {
+			Category: '',														// カテゴリ
+			X: 0,																// X 座標
+			Y: 0,																// Y 座標
+			W: 0,																// 横幅
+			H: 0,																// 高さ
+			Alt: ''																// 説明文
+		};
+
+		var Found = false;
+
+		// 対応する絵文字を manifest.json から探す
+		for( var Category in this.BeamEmoticons )
+		{
+			var Contents = this.BeamEmoticons[Category];
+			for( var Emoticon in Contents.emoticons )
+			{
+				// 該当する絵文字が見つかった場合
+				if( _Emoticon == Emoticon )
+				{
+					var Data = Contents.emoticons[Emoticon];
+					EmoticonData.Category = Category;
+					EmoticonData.X = Data.x;
+					EmoticonData.Y = Data.y;
+					EmoticonData.W = Data.width;
+					EmoticonData.H = Data.height;
+					EmoticonData.Alt = Data.alt.en;
+					Found = true;
+					break;
+				}
+			}
+
+			// 対応する絵文字が見つかった場合はループを抜ける
+			if( Found )
+			{
+				break;
+			}
+		}
+
+		// 対応する絵文字が見つかった場合、絵文字タグを生成する
+		if( Found )
+		{
+			var ImageURL = 'https://beam.pro/_latest/emoticons/'+EmoticonData.Category+'.png'
+
+			var Tag =
+			[
+				'<div class="Emoticon" style="width: '+EmoticonData.W+'px; height: '+EmoticonData.H+'px;">',
+				'<img src="'+ImageURL+'" style="transform: translate(-'+EmoticonData.X+'px, -'+EmoticonData.Y+'px);" alt="'+EmoticonData.Alt+'" />',
+				'</div>',
+			].join("");
+
+			Ret = Tag;
+		}
+
 		return Ret;
 	}
 

@@ -152,11 +152,26 @@
 	white-space: nowrap;
 }
 
-/* Comment */
+/* Comment - Links */
 #ViewCommentArea #Body .Row .Comment span .Link
 {
 	cursor: pointer;
 	text-decoration: underline;
 	color: #3498db;
 	word-break: break-all;
+}
+
+/* Comment - Emoticons */
+#ViewCommentArea #Body .Row .Comment span .Emoticon
+{
+	display: inline-block;
+	border: none;
+	font-size: 0;
+	line-height: 0;
+	vertical-align: middle;
+	overflow: hidden;
+}
+#ViewCommentArea #Body .Row .Comment span .Emoticon img
+{
+	display: block;
 }
