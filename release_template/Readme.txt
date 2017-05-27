@@ -1,13 +1,13 @@
-# Beam Comment Viewer
+# Mixer Comment Viewer
 
-Beam 配信時にコメントを閲覧するためのアプリケーションです。棒読みちゃんと連携できます。
+Mixer 配信時にコメントを閲覧するためのアプリケーションです。棒読みちゃんと連携できます。
 
 ## 詳細
 
-Beam ( https://beam.pro/ )で、自身の配信ページに書き込まれたチャットコメントをリアルタイムで閲覧するためのアプリケーションです。
+Mixer ( https://mixer.com/ )で、自身の配信ページに書き込まれたチャットコメントをリアルタイムで閲覧するためのアプリケーションです。
 みちあき 氏が作成された「棒読みちゃん ( http://chi.usamimi.info/Program/Application/BouyomiChan/ )」と連携することで、
 書き込まれたチャットコメントを読み上げさせることも可能です。
-ニコニコ生放送 ( 以下ニコ生 ) における「Niconama Comment Viewer」( 以下NCV ) の役割を Beam 上で果たす目的で開発されました。
+ニコニコ生放送 ( 以下ニコ生 ) における「Niconama Comment Viewer」( 以下NCV ) の役割を Mixer 上で果たす目的で開発されました。
 
 当面は、Windows 7 / 8 / 8.1 / 10 が動作対象 OS となります。
 
