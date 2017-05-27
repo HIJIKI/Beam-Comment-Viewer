@@ -14,6 +14,7 @@ Mixer ( https://mixer.com/ )で、自身の配信ページに書き込まれた�
 当面は、Windows 7 / 8 / 8.1 / 10 が動作対象 OS となります。
 
 使い方は ののたま様 「[【Beam】BeamCommentViewerの使い方](http://ch.nicovideo.jp/nonota/blomaga/ar1178037 "【Beam】BeamCommentViewerの使い方")」 (ブロマガ) をご覧ください。
+
 ※上記ブロマガ内では現「Mixer」が旧名称「Beam」と表記されております。
 
 ## ダウンロード
