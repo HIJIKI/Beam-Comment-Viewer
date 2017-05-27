@@ -130,10 +130,10 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static ConnectMyChannel()
 	{
-		// Beam 接続設定が済んでいない場合
+		// Mixer 接続設定が済んでいない場合
 		if( Setting.UserName.length < 1 || Setting.Password.length < 1 )
 		{
-			alert('Beam アカウントが正しく設定されていません。');
+			alert('Mixer アカウントが正しく設定されていません。');
 		}
 		else
 		{
@@ -151,10 +151,10 @@ class MenuBar
 	//----------------------------------------------------------------------------------------------
 	static ConnectByChannelName()
 	{
-		// Beam 接続設定が済んでいない場合
+		// Mixer 接続設定が済んでいない場合
 		if( Setting.UserName.length < 1 || Setting.Password.length < 1 )
 		{
-			alert('Beam アカウントが正しく設定されていません。');
+			alert('Mixer アカウントが正しく設定されていません。');
 		}
 		else
 		{
@@ -241,13 +241,13 @@ class MenuBar
 		const Version = pjson.version;
 		var Data =
 		[
-			'Beam Comment Viewer\n',
+			'Mixer Comment Viewer\n',
 			'Version '+Version+'\n',
 			'\n',
-			'GitHub: https://github.com/HIJIKIsw/Beam-Comment-Viewer\n',
+			'GitHub: https://github.com/HIJIKIsw/Mixer-Comment-Viewer\n',
 			'\n',
 			'©2017 HIJIKIsw\n',
-			'Icon Design: kix'
+			'Icon Design: Chinana'
 		].join("");
 		alert(Data);
 	}

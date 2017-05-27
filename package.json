@@ -1,12 +1,12 @@
 {
 	"//":"アプリケーションの名前 (同じ名前の NW.js 製アプリ間で LocalStorage が共有されます。なるべくユニークなものにしてください。)",
-	"name": "HIJIKI SOFT\\Beam Comment Viewer",
+	"name": "HIJIKI SOFT\\Mixer Comment Viewer",
 	"version": "1.3.0",
 	"main": "index.html",
 	"window":
 	{
-		"id": "BeamCommentViewerForNW.js",
-		"title": "Beam Comment Viewer",
+		"id": "MixerCommentViewerForNW.js",
+		"title": "Mixer Comment Viewer",
 		"icon": "./img/icon.png",
 		"width": 640,
 		"min_width": 492,

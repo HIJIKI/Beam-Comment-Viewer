@@ -10,8 +10,8 @@ class ViewCommentArea
 	{
 		// 絵文字置換に使用する manifest.json を取得する
 		const https = require('https');
-		const ManifestUrl = 'https://beam.pro/_latest/emoticons/manifest.json';
-		this.BeamEmoticons = undefined;
+		const ManifestUrl = 'https://mixer.com/_latest/emoticons/manifest.json';
+		this.MixerEmoticons = undefined;
 		https.get(ManifestUrl, function(responce) {
 			var Body = '';
 			responce.setEncoding('utf8');
@@ -19,9 +19,9 @@ class ViewCommentArea
 				Body += chunk;
 			});
 			responce.on('end', function() {
-				ViewCommentArea.BeamEmoticons = JSON.parse(Body);
+				ViewCommentArea.MixerEmoticons = JSON.parse(Body);
 				console.log('Successful Get Emoticons manifest.json');
-				console.log(ViewCommentArea.BeamEmoticons);
+				console.log(ViewCommentArea.MixerEmoticons);
 			});
 		}).on('error', function(e) {
 			console.log('Failed to Emoticons manifest.json: '+e.message);
@@ -182,9 +182,9 @@ class ViewCommentArea
 		var Found = false;
 
 		// 対応する絵文字を manifest.json から探す
-		for( var Category in this.BeamEmoticons )
+		for( var Category in this.MixerEmoticons )
 		{
-			var Contents = this.BeamEmoticons[Category];
+			var Contents = this.MixerEmoticons[Category];
 			for( var Emoticon in Contents.emoticons )
 			{
 				// 該当する絵文字が見つかった場合
@@ -212,7 +212,7 @@ class ViewCommentArea
 		// 対応する絵文字が見つかった場合、絵文字タグを生成する
 		if( Found )
 		{
-			var ImageURL = 'https://beam.pro/_latest/emoticons/'+EmoticonData.Category+'.png'
+			var ImageURL = 'https://mixer.com/_latest/emoticons/'+EmoticonData.Category+'.png'
 
 			var Tag =
 			[

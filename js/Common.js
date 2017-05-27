@@ -22,7 +22,7 @@ class Common
 	//----------------------------------------------------------------------------------------------
 	static GetAvatarURL(UserID)
 	{
-		const Prefix = "https://beam.pro/api/v1/users/"
+		const Prefix = "https://mixer.com/api/v1/users/"
 		const Suffix = "/avatar";
 		var Ret = Prefix + UserID + Suffix;
 		return Ret;
@@ -225,7 +225,7 @@ class Common
 							var DoOpen = confirm("新しいバージョン「"+ LatestVersion +"」が公開されています。\nダウンロードページを開きますか？");
 							if( DoOpen )
 							{
-								const DownloadURL = "https://github.com/HIJIKIsw/Beam-Comment-Viewer/releases";
+								const DownloadURL = "https://github.com/HIJIKIsw/Mixer-Comment-Viewer/releases";
 								Common.OpenLink(DownloadURL);
 							}
 						}

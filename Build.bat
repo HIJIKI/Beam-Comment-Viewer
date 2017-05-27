@@ -5,10 +5,10 @@
 cd /d %~dp0
 
 mkdir Build
-mkdir Build\BCV
+mkdir Build\MCV
 
 set Source=.
-set Destination=Build\BCV
+set Destination=Build\MCV
 
 xcopy /Y /e %Source%\css %Destination%\css\
 xcopy /Y /e %Source%\img %Destination%\img\

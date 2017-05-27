@@ -38,3 +38,5 @@ Build
 
 # ReleaseTemplate
 release_template/app
+release_template/app_x64
+release_template/app_x86

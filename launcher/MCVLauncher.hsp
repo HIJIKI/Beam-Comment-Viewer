@@ -2,8 +2,8 @@
 
 chdir "./app"
 
-nwjs = "Beam Comment Viewer.exe"
-bcv = "BCV"
+nwjs = "nw.exe"
+bcv = "MCV"
 
 exec "\"./"+nwjs+"\" ./"+bcv
 end
